@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
 
-// ✅ WhatsApp Button Component
+// ✅ WhatsApp Floating Button
 const WhatsAppButton = () => (
   <a
     href="https://wa.me/27600000000" // Replace with your WhatsApp number
@@ -21,7 +21,7 @@ const WhatsAppButton = () => (
       alignItems: "center",
       justifyContent: "center",
       fontSize: "30px",
-      boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
+      boxShadow: "0 4px 10px rgba(0,0,0,0.3)",
       zIndex: "1000"
     }}
   >
@@ -55,20 +55,64 @@ const MyBookings = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(`Booking Confirmed!\nPickup: ${formData.pickup}\nDrop-off: ${formData.dropoff}\nDate: ${formData.date}\nTime: ${formData.time}`);
+    alert(`Booking Confirmed!
+Pickup: ${formData.pickup}
+Drop-off: ${formData.dropoff}
+Date: ${formData.date}
+Time: ${formData.time}`);
+  };
+
+  const handleYocoPayment = () => {
+    const yoco = new window.YocoSDK({
+      publicKey: "pk_test_xxxxxxxxxxxxxxx" // Replace with your Yoco Test Public Key
+    });
+
+    yoco.showPopup({
+      amountInCents: 10000, // Example: R100
+      currency: "ZAR",
+      name: "Load-N-Go Logistics",
+      description: "Booking Payment",
+      callback: function (result) {
+        if (result.error) {
+          alert("Payment failed: " + result.error.message);
+        } else {
+          alert("Payment successful! Token: " + result.id);
+        }
+      }
+    });
   };
 
   return (
     <div className="booking-form">
       <h2>Book Your Load</h2>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="pickup" placeholder="Pickup Location" onChange={handleChange} required />
-        <input type="text" name="dropoff" placeholder="Drop-off Location" onChange={handleChange} required />
+        <input
+          type="text"
+          name="pickup"
+          placeholder="Pickup Location"
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="dropoff"
+          placeholder="Drop-off Location"
+          onChange={handleChange}
+          required
+        />
         <input type="date" name="date" onChange={handleChange} required />
         <input type="time" name="time" onChange={handleChange} required />
-        <textarea name="loadDetails" placeholder="Load Details" onChange={handleChange}></textarea>
+        <textarea
+          name="loadDetails"
+          placeholder="Load Details"
+          onChange={handleChange}
+        ></textarea>
         <button type="submit">Confirm Booking</button>
-        <button type="button" style={{ background: "black", color: "white", marginTop: "10px" }}>
+        <button
+          type="button"
+          style={{ background: "black", color: "white", marginTop: "10px" }}
+          onClick={handleYocoPayment}
+        >
           Pay with Yoco
         </button>
       </form>
@@ -76,11 +120,11 @@ const MyBookings = () => {
   );
 };
 
-// ✅ Contact Support Page
+// ✅ Contact Page
 const Contact = () => (
   <div style={{ textAlign: "center", padding: "50px" }}>
     <h2>Contact Support</h2>
-    <p>Need help? Reach out to us via WhatsApp or email: support@loadngo.com</p>
+    <p>Need help? WhatsApp us or email: support@loadngo.com</p>
   </div>
 );
 
@@ -89,8 +133,12 @@ function App() {
     <Router>
       <header>
         <div style={{ display: "flex", alignItems: "center" }}>
-          <img src="/logo.png" alt="Load-N-Go Logo" style={{ height: "50px" }} />
-          <h1 style={{ marginLeft: "10px" }}>LOAD-N-GO</h1>
+          <img
+            src="/logo.png"
+            alt="Load-N-Go Logo"
+            style={{ height: "50px", marginRight: "10px" }}
+          />
+          <h1 style={{ margin: 0 }}>LOAD-N-GO</h1>
         </div>
         <nav>
           <Link to="/">Home</Link>
