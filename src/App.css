@@ -1,13 +1,10 @@
-/* General Styles */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
 }
 
-/* Navbar */
 header {
-  background-color: #001f3f; /* Navy Blue */
+  background: #001f3f;
   color: white;
   display: flex;
   justify-content: space-between;
@@ -21,16 +18,15 @@ header img {
 
 header nav a {
   color: white;
-  text-decoration: none;
   margin-left: 20px;
+  text-decoration: none;
   font-weight: bold;
 }
 
 header nav a:hover {
-  color: #ff6600; /* Orange */
+  color: #ff6600;
 }
 
-/* Hero Section */
 .hero {
   background: linear-gradient(135deg, #001f3f, #ff6600);
   color: white;
@@ -38,20 +34,9 @@ header nav a:hover {
   padding: 100px 20px;
 }
 
-.hero h1 {
-  font-size: 50px;
-  margin-bottom: 20px;
-}
-
-.hero p {
-  font-size: 20px;
-  margin-bottom: 30px;
-}
-
 .hero button {
-  background-color: white;
+  background: white;
   color: #ff6600;
-  border: none;
   padding: 15px 30px;
   font-size: 18px;
   font-weight: bold;
@@ -59,11 +44,6 @@ header nav a:hover {
   cursor: pointer;
 }
 
-.hero button:hover {
-  background-color: #f1f1f1;
-}
-
-/* Features Section */
 .features {
   display: flex;
   justify-content: space-around;
@@ -72,18 +52,72 @@ header nav a:hover {
 }
 
 .feature-card {
+  width: 300px;
   background: #f9f9f9;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  width: 300px;
-  text-align: center;
 }
 
-/* Footer */
 footer {
-  background-color: #333;
+  background: #333;
   color: white;
   text-align: center;
   padding: 20px;
+}
+
+/* Booking Form */
+.form-container {
+  max-width: 500px;
+  margin: 50px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-container input,
+.form-container textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.form-container button,
+.yoco-button {
+  display: inline-block;
+  width: 100%;
+  background: #ff6600;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.form-container button:hover,
+.yoco-button:hover {
+  background: #e55a00;
+}
+
+/* WhatsApp Floating Button */
+.whatsapp-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #25d366;
+  color: white;
+  font-size: 24px;
+  padding: 15px;
+  border-radius: 50%;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
