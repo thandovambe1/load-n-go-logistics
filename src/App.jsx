@@ -1,35 +1,43 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
+import "./App.css";
+import logo from "./assets/logo.png"; // make sure you upload your logo to src/assets
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
+    <div className="app-container" style={{ fontFamily: "Arial, sans-serif", textAlign: "center", backgroundColor: "#f8f9fa", minHeight: "100vh" }}>
+      <header style={{ backgroundColor: "#001f3f", padding: "20px", color: "#fff" }}>
+        <img src={logo} alt="Load-N-Go Logo" style={{ height: "80px" }} />
+        <h1 style={{ color: "#FF6600" }}>Load-N-Go Logistics</h1>
+        <p style={{ marginTop: "10px" }}>Tech Driven Transit</p>
+      </header>
+
+      <main style={{ padding: "40px" }}>
+        <h2 style={{ color: "#001f3f" }}>Book Your Load with Ease!</h2>
+        <p style={{ maxWidth: "600px", margin: "20px auto" }}>
+          We provide fast, reliable, and tech-driven logistics solutions to meet your business and personal transport needs.
         </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+        <a
+          href="#"
+          style={{
+            display: "inline-block",
+            padding: "15px 30px",
+            backgroundColor: "#FF6600",
+            color: "#fff",
+            borderRadius: "8px",
+            textDecoration: "none",
+            fontSize: "18px",
+          }}
+        >
+          Book Now
+        </a>
+      </main>
+
+      <footer style={{ backgroundColor: "#f1f1f1", padding: "20px", marginTop: "40px" }}>
+        <p>Contact Support: <a href="mailto:support@load-n-go.com">support@load-n-go.com</a></p>
+        <p>© {new Date().getFullYear()} Load-N-Go Logistics</p>
+      </footer>
+    </div>
+  );
 }
 
-export default App
+export default App;
