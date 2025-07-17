@@ -1,81 +1,138 @@
-body {
+/* ✅ Global Reset */
+* {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f4f4;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, sans-serif;
 }
 
+/* ✅ Body Styling */
+body {
+  background-color: #f7f7f7;
+  color: #333;
+  font-size: 16px;
+}
+
+/* ✅ Header Navigation */
 header {
-  background: #001f3f;
+  background: navy;
   color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header img {
+  height: 50px;
 }
 
 header nav a {
   color: white;
+  margin: 0 15px;
   text-decoration: none;
-  margin-left: 20px;
   font-weight: bold;
+  transition: color 0.3s ease;
 }
 
 header nav a:hover {
-  color: #ff6600;
+  color: orange;
 }
 
+/* ✅ Hero Section */
 .hero {
-  background: linear-gradient(135deg, #001f3f, #ff6600);
-  color: white;
+  background: url("/hero.jpg") center/cover no-repeat; /* Replace with your actual image */
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  padding: 100px 20px;
+  color: white;
+  padding: 20px;
+  background-color: navy; /* fallback if no image */
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.hero p {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
 }
 
 .hero button {
-  background: white;
-  color: #ff6600;
+  background: orange;
+  color: white;
   border: none;
-  padding: 15px 30px;
-  font-size: 18px;
-  font-weight: bold;
+  padding: 15px 25px;
+  margin: 5px;
+  font-size: 16px;
   border-radius: 8px;
   cursor: pointer;
+  transition: background 0.3s ease;
 }
 
+.hero button:hover {
+  background: #ff9800;
+}
+
+/* ✅ Booking Form */
 .booking-form {
-  max-width: 400px;
-  margin: 50px auto;
   background: white;
-  padding: 20px;
+  width: 90%;
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 25px;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.booking-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: navy;
 }
 
 .booking-form input,
 .booking-form textarea {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   margin: 10px 0;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 6px;
+  font-size: 14px;
 }
 
 .booking-form button {
   width: 100%;
-  background: #ff6600;
+  background: orange;
   color: white;
   border: none;
-  padding: 12px;
+  padding: 15px;
   font-size: 16px;
-  font-weight: bold;
-  border-radius: 8px;
+  margin-top: 10px;
+  border-radius: 6px;
   cursor: pointer;
 }
 
+.booking-form button:hover {
+  background: #ff9800;
+}
+
+/* ✅ WhatsApp Floating Button */
+a[style*="position: fixed"] {
+  font-size: 28px;
+}
+
+/* ✅ Footer */
 footer {
-  background: #333;
-  color: white;
   text-align: center;
   padding: 20px;
-  margin-top: 20px;
+  background: #333;
+  color: white;
+  margin-top: 40px;
 }
