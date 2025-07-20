@@ -1,22 +1,11 @@
-import React, { useState } from "react";
+// src/pages/Bookings.jsx
+import React from 'react';
 
-const Bookings = () => {
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-
-  const handleBooking = () => {
-    alert(`Booking confirmed for ${date} at ${time}`);
-  };
-
+export default function Bookings() {
   return (
-    <div className="page bookings">
-      <h1>Book a Delivery</h1>
-      <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
-      <input type="time" value={time} onChange={(e) => setTime(e.target.value)} />
-      <button onClick={handleBooking}>Confirm Booking</button>
-      <button className="pay-btn">Pay with Yoco</button>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <h2 className="text-4xl font-bold mb-4">My Bookings</h2>
+      <p>No bookings yet. Start by creating one!</p>
     </div>
   );
-};
-
-export default Bookings;
+}

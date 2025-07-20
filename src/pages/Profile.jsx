@@ -1,48 +1,40 @@
-import React, { useState } from "react";
-import { useAuth } from "../hooks/useAuth";
+// src/pages/Profile.jsx
+import React, { useState } from 'react';
+import { auth } from '../firebase';
+import { updateProfile } from 'firebase/auth';
 
-const Profile = () => {
-  const { user, loginWithGoogle, loginWithEmail, registerWithEmail, logout } = useAuth();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export default function Profile() {
+  const user = auth.currentUser;
+  const [name, setName] = useState(user?.displayName || '');
+  const [photo, setPhoto] = useState(user?.photoURL || '');
 
-  if (!user) {
-    return (
-      <div className="page profile">
-        <h1>Login / Register</h1>
-        <button onClick={loginWithGoogle}>Sign in with Google</button>
-        <hr />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button onClick={() => loginWithEmail(email, password)}>Login</button>
-        <button onClick={() => registerWithEmail(email, password)}>Register</button>
-      </div>
-    );
-  }
+  const updateUserProfile = async () => {
+    try {
+      await updateProfile(user, { displayName: name, photoURL: photo });
+      alert('Profile updated!');
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
-    <div className="page profile">
-      <h1>My Profile</h1>
-      <img
-        src={user.photoURL || "/default-avatar.png"}
-        alt="Profile"
-        width="100"
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <h2 className="text-3xl font-bold mb-6">My Profile</h2>
+      <input
+        type="text"
+        value={name}
+        placeholder="Full Name"
+        className="border p-2 mb-2 rounded"
+        onChange={(e) => setName(e.target.value)}
       />
-      <p>Name: {user.displayName || "N/A"}</p>
-      <p>Email: {user.email}</p>
-      <button onClick={logout}>Logout</button>
+      <input
+        type="text"
+        value={photo}
+        placeholder="Photo URL"
+        className="border p-2 mb-4 rounded"
+        onChange={(e) => setPhoto(e.target.value)}
+      />
+      <button onClick={updateUserProfile} className="bg-orange-500 text-white px-6 py-2 rounded">Update Profile</button>
     </div>
   );
-};
-
-export default Profile;
+}
