@@ -1,16 +1,46 @@
 import React, { useState } from "react";
+import { useAuth } from "../hooks/useAuth";
 
 const Profile = () => {
-  const [name, setName] = useState("John Doe");
-  const [photo, setPhoto] = useState("");
+  const { user, loginWithGoogle, loginWithEmail, registerWithEmail, logout } = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  if (!user) {
+    return (
+      <div className="page profile">
+        <h1>Login / Register</h1>
+        <button onClick={loginWithGoogle}>Sign in with Google</button>
+        <hr />
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button onClick={() => loginWithEmail(email, password)}>Login</button>
+        <button onClick={() => registerWithEmail(email, password)}>Register</button>
+      </div>
+    );
+  }
 
   return (
     <div className="page profile">
       <h1>My Profile</h1>
-      <img src={photo || "/default-avatar.png"} alt="Profile" width="100" />
-      <input type="file" onChange={(e) => setPhoto(URL.createObjectURL(e.target.files[0]))} />
-      <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-      <button>Update Profile</button>
+      <img
+        src={user.photoURL || "/default-avatar.png"}
+        alt="Profile"
+        width="100"
+      />
+      <p>Name: {user.displayName || "N/A"}</p>
+      <p>Email: {user.email}</p>
+      <button onClick={logout}>Logout</button>
     </div>
   );
 };
