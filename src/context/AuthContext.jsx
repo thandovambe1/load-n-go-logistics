@@ -1,39 +1,17 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { auth, googleProvider } from "../firebase";
-import {
-  signInWithPopup,
-  signOut,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword
-} from "firebase/auth";
+// src/firebase.js
+import { initializeApp } from "firebase/app";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
-const AuthContext = createContext();
-
-export const useAuth = () => useContext(AuthContext);
-
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-    return () => unsubscribe();
-  }, []);
-
-  const signInWithGoogle = () => signInWithPopup(auth, googleProvider);
-  const registerWithEmail = (email, password) =>
-    createUserWithEmailAndPassword(auth, email, password);
-  const loginWithEmail = (email, password) =>
-    signInWithEmailAndPassword(auth, email, password);
-  const logout = () => signOut(auth);
-
-  return (
-    <AuthContext.Provider
-      value={{ user, signInWithGoogle, registerWithEmail, loginWithEmail, logout }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+const firebaseConfig = {
+  apiKey: "AIzaSyDspiXD9hUiHRDOVLhnNoObl7MB_xBoLtk",
+  authDomain: "load-n-go-logistics.firebaseapp.com",
+  projectId: "load-n-go-logistics",
+  storageBucket: "load-n-go-logistics.firebasestorage.app",
+  messagingSenderId: "597245927020",
+  appId: "1:597245927020:web:b42d81d58e363433578249",
+  measurementId: "G-NL5KWT8ZPB"
 };
+
+const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+export const googleProvider = new GoogleAuthProvider();
