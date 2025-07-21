@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import WhatsAppButton from "./components/WhatsAppButton";
 import Home from "./pages/Home";
 import MyBookings from "./pages/MyBookings";
 import Profile from "./pages/Profile";
@@ -15,6 +17,8 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
       </Routes>
+      <WhatsAppButton />
+      <Footer />
     </Router>
   );
 }
