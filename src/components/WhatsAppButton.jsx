@@ -1,18 +1,37 @@
+import React from "react";
+
 const WhatsAppButton = () => {
   const phoneNumber = "27810554566";
-  const message = "Hello! I need assistance with Load-N-Go Logistics.";
-  const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+  const message = "Hello, I need assistance with Load-N-Go Logistics.";
+
+  const handleClick = () => {
+    window.open(
+      `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`,
+      "_blank"
+    );
+  };
 
   return (
-    <a
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-full shadow-xl flex items-center space-x-2 font-bold text-lg"
+    <div
+      onClick={handleClick}
+      style={{
+        position: "fixed",
+        bottom: "20px",
+        right: "20px",
+        backgroundColor: "#25D366",
+        borderRadius: "50%",
+        padding: "15px",
+        cursor: "pointer",
+        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.3)",
+        zIndex: 1000,
+      }}
     >
-      <img src="/whatsapp-icon.png" alt="WhatsApp" className="h-6 w-6" />
-      <span>Chat</span>
-    </a>
+      <img
+        src="/assets/whatsapp.png"
+        alt="WhatsApp"
+        style={{ width: "40px", height: "40px" }}
+      />
+    </div>
   );
 };
 
