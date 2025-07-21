@@ -1,27 +1,29 @@
-import { useState } from "react";
+import React from "react";
+import { useAuth } from "../context/AuthContext";
 
 const Profile = () => {
-  const [name, setName] = useState("John Doe");
-  const [email] = useState("johndoe@example.com");
+  const { user, logout } = useAuth();
+
+  if (!user) {
+    return <p className="p-8 text-center">Please log in first.</p>;
+  }
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-24 px-6 flex justify-center">
-      <div className="bg-white shadow-xl rounded-2xl p-8 max-w-lg w-full">
-        <h2 className="text-3xl font-bold text-blue-900 mb-6">My Profile</h2>
-        <div className="flex flex-col items-center mb-6">
-          <img src="/default-profile.png" alt="Profile" className="h-24 w-24 rounded-full border mb-4" />
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="border rounded-lg px-4 py-2 w-full text-center mb-3"
-          />
-          <p className="text-gray-600">{email}</p>
-        </div>
-        <button className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-bold w-full">
-          Save Changes
-        </button>
-      </div>
+    <div className="p-8 text-center">
+      <h1 className="text-3xl font-bold mb-4">My Profile</h1>
+      <img
+        src={user.photoURL || "https://via.placeholder.com/100"}
+        alt="Profile"
+        className="w-24 h-24 rounded-full mx-auto mb-4"
+      />
+      <p className="text-lg">Name: {user.displayName}</p>
+      <p>Email: {user.email}</p>
+      <button
+        onClick={logout}
+        className="bg-red-500 text-white px-4 py-2 rounded mt-4"
+      >
+        Logout
+      </button>
     </div>
   );
 };
