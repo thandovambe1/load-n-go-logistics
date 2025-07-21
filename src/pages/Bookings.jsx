@@ -1,51 +1,35 @@
 import React, { useState } from "react";
 
 const Bookings = () => {
-  const [pickup, setPickup] = useState("");
-  const [dropoff, setDropoff] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert(`Booking Confirmed!\nPickup: ${pickup}\nDropoff: ${dropoff}\nDate: ${date}\nTime: ${time}`);
-  };
-
   return (
-    <div className="p-8">
-      <h1 className="text-3xl font-bold mb-6 text-center">Book Your Delivery</h1>
-      <form onSubmit={handleSubmit} className="max-w-lg mx-auto bg-white p-6 rounded-xl shadow-lg">
-        <input
-          type="text"
-          placeholder="Pickup Location"
-          className="w-full p-3 border rounded mb-4"
-          value={pickup}
-          onChange={(e) => setPickup(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Drop-off Location"
-          className="w-full p-3 border rounded mb-4"
-          value={dropoff}
-          onChange={(e) => setDropoff(e.target.value)}
-          required
-        />
-        <input
-          type="date"
-          className="w-full p-3 border rounded mb-4"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          required
-        />
-        <input
-          type="time"
-          className="w-full p-3 border rounded mb-4"
-          value={time}
-          onChange={(e) => setTime(e.target.value)}
-          required
-        />
-        <button type="submit" className="w-full bg-orange-500 text-white p-3 rounded font-bold hover:bg-orange-600">
+    <div className="pt-24 px-6">
+      <h2 className="text-3xl font-bold text-gray-800 mb-4">Book a Delivery</h2>
+      <form className="bg-white p-6 rounded shadow-md max-w-lg mx-auto">
+        <label className="block mb-4">
+          <span className="text-gray-700">Choose Date:</span>
+          <input
+            type="date"
+            className="block w-full mt-2 border p-2 rounded"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+          />
+        </label>
+        <label className="block mb-4">
+          <span className="text-gray-700">Choose Time:</span>
+          <input
+            type="time"
+            className="block w-full mt-2 border p-2 rounded"
+            value={time}
+            onChange={(e) => setTime(e.target.value)}
+          />
+        </label>
+        <button
+          type="submit"
+          className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600"
+        >
           Confirm Booking
         </button>
       </form>
