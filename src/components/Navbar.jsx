@@ -1,18 +1,22 @@
+import React from "react";
 import { Link } from "react-router-dom";
+import logo from "../assets/logo.jpg";
 
-export default function Navbar() {
+const Navbar = () => {
   return (
-    <nav className="bg-navy-900 text-white flex justify-between items-center px-6 py-4 shadow-lg">
-      <div className="flex items-center space-x-3">
-        <img src="/src/assets/logo.jpg" alt="Logo" className="h-12 w-12 rounded-full" />
-        <h1 className="text-xl font-bold">Load-N-Go Logistics</h1>
+    <nav className="bg-blue-900 text-white p-4 flex justify-between items-center shadow-md">
+      <div className="flex items-center space-x-2">
+        <img src={logo} alt="Load-N-Go" className="h-12 w-12 rounded-full" />
+        <h1 className="text-2xl font-bold text-orange-500">Load-N-Go</h1>
       </div>
-      <ul className="flex space-x-6">
-        <li><Link to="/" className="hover:text-orange-400">Home</Link></li>
-        <li><Link to="/bookings" className="hover:text-orange-400">My Bookings</Link></li>
-        <li><Link to="/profile" className="hover:text-orange-400">Profile</Link></li>
-        <li><Link to="/login" className="bg-orange-500 px-4 py-2 rounded hover:bg-orange-600">Login</Link></li>
-      </ul>
+      <div className="space-x-6">
+        <Link to="/" className="hover:text-orange-400">Home</Link>
+        <Link to="/bookings" className="hover:text-orange-400">My Bookings</Link>
+        <Link to="/login" className="hover:text-orange-400">Login</Link>
+        <Link to="/profile" className="hover:text-orange-400">Profile</Link>
+      </div>
     </nav>
   );
-}
+};
+
+export default Navbar;
