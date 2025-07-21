@@ -1,18 +1,70 @@
-const Home = () => {
+import { useState } from "react";
+import { db } from "../firebase";
+import { addDoc, collection } from "firebase/firestore";
+import { useAuth } from "../context/AuthContext";
+
+export default function Home() {
+  const { user } = useAuth();
+  const [pickup, setPickup] = useState("");
+  const [dropoff, setDropoff] = useState("");
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+
+  const handleBooking = async () => {
+    if (!user) {
+      alert("Please log in first");
+      return;
+    }
+    await addDoc(collection(db, "bookings"), {
+      userId: user.uid,
+      pickup,
+      dropoff,
+      date,
+      time,
+      createdAt: new Date()
+    });
+    alert("Booking confirmed!");
+    setPickup("");
+    setDropoff("");
+    setDate("");
+    setTime("");
+  };
+
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-gray-50 pt-20">
-      <div className="relative w-full max-w-7xl">
-        <img src="/hero.jpg" alt="Hero" className="w-full h-[500px] object-cover rounded-2xl shadow-lg" />
-        <div className="absolute top-1/2 left-8 transform -translate-y-1/2 text-white bg-black/50 p-6 rounded-xl">
-          <h1 className="text-5xl font-bold mb-4">Reliable Logistics at Your Fingertips</h1>
-          <p className="text-lg mb-6">Book trucks easily, track your loads, and manage deliveries seamlessly.</p>
-          <a href="/my-bookings" className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-bold text-xl">
-            Book Now
-          </a>
-        </div>
-      </div>
+    <div className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-lg">
+      <h2 className="text-xl font-bold mb-4">Book a Ride</h2>
+      <input
+        type="text"
+        placeholder="Pickup Location"
+        value={pickup}
+        onChange={(e) => setPickup(e.target.value)}
+        className="border p-2 w-full mb-2"
+      />
+      <input
+        type="text"
+        placeholder="Drop-off Location"
+        value={dropoff}
+        onChange={(e) => setDropoff(e.target.value)}
+        className="border p-2 w-full mb-2"
+      />
+      <input
+        type="date"
+        value={date}
+        onChange={(e) => setDate(e.target.value)}
+        className="border p-2 w-full mb-2"
+      />
+      <input
+        type="time"
+        value={time}
+        onChange={(e) => setTime(e.target.value)}
+        className="border p-2 w-full mb-2"
+      />
+      <button
+        onClick={handleBooking}
+        className="bg-blue-600 text-white px-4 py-2 rounded w-full"
+      >
+        Confirm Booking
+      </button>
     </div>
   );
-};
-
-export default Home;
+}
