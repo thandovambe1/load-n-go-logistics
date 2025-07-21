@@ -1,35 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
-const WhatsAppButton = () => {
-  const phoneNumber = "27810554566";
-  const message = "Hello, I need assistance with Load-N-Go Logistics.";
-
-  const handleClick = () => {
-    window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, "_blank");
-  };
+const Navbar = () => {
+  const [showDropdown, setShowDropdown] = useState(false);
 
   return (
-    <div
-      onClick={handleClick}
-      style={{
-        position: "fixed",
-        bottom: "20px",
-        right: "20px",
-        backgroundColor: "#25D366",
-        borderRadius: "50%",
-        padding: "15px",
-        cursor: "pointer",
-        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.3)",
-        zIndex: 1000,
-      }}
-    >
-      <img
-        src="/assets/whatsapp.png"
-        alt="WhatsApp"
-        style={{ width: "40px", height: "40px" }}
-      />
-    </div>
+    <nav className="bg-blue-600 text-white p-4 flex justify-between items-center">
+      <h1 className="text-2xl font-bold">Load-N-Go Logistics</h1>
+      <div className="flex space-x-6 items-center">
+        <Link to="/" className="hover:underline">Home</Link>
+
+        {/* Services Dropdown */}
+        <div
+          className="relative"
+          onMouseEnter={() => setShowDropdown(true)}
+          onMouseLeave={() => setShowDropdown(false)}
+        >
+          <button className="hover:underline">Our Services ▾</button>
+          {showDropdown && (
+            <div className="absolute top-8 bg-white text-black rounded shadow-lg w-72 z-50">
+              <ul>
+                <li className="p-2 hover:bg-gray-200">Furniture/Home removals & delivery</li>
+                <li className="p-2 hover:bg-gray-200">Office & Home Furniture & appliance delivery</li>
+                <li className="p-2 hover:bg-gray-200">International removals</li>
+                <li className="p-2 hover:bg-gray-200">Storage services</li>
+                <li className="p-2 hover:bg-gray-200">Car transport</li>
+                <li className="p-2 hover:bg-gray-200">Motorcycle transport</li>
+              </ul>
+            </div>
+          )}
+        </div>
+
+        <Link to="/bookings" className="hover:underline">My Bookings</Link>
+        <Link to="/contact" className="hover:underline">Contact</Link>
+      </div>
+    </nav>
   );
 };
 
-export default WhatsAppButton;
+export default Navbar;
