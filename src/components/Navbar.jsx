@@ -1,43 +1,18 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import logo from "../assets/logo.jpg";
 
-const Navbar = () => {
+export default function Navbar() {
   return (
-    <nav className="bg-white shadow-md fixed w-full top-0 left-0 z-50">
-      <div className="max-w-7xl mx-auto flex justify-between items-center py-3 px-6">
-        {/* Logo */}
-        <div className="flex items-center space-x-3">
-          <img src={logo} alt="Logo" className="h-16 w-auto rounded-lg shadow-md" />
-          <h1 className="text-2xl font-extrabold text-orange-600">Load-N-Go</h1>
-        </div>
-
-        {/* Links */}
-        <ul className="hidden md:flex space-x-8 text-gray-700 font-semibold">
-          <li>
-            <Link to="/" className="hover:text-orange-500 transition">
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link to="/bookings" className="hover:text-orange-500 transition">
-              My Bookings
-            </Link>
-          </li>
-          <li>
-            <Link to="/profile" className="hover:text-orange-500 transition">
-              Profile
-            </Link>
-          </li>
-          <li>
-            <Link to="/login" className="bg-orange-500 text-white px-5 py-2 rounded-lg hover:bg-orange-600 transition">
-              Login
-            </Link>
-          </li>
-        </ul>
+    <nav className="bg-blue-900 text-white px-6 py-4 flex justify-between items-center shadow-md">
+      <div className="flex items-center gap-3">
+        <img src="/src/assets/logo.jpg" alt="Load-N-Go" className="h-12 w-12 rounded-full" />
+        <h1 className="text-2xl font-bold">Load-N-Go Logistics</h1>
       </div>
+      <ul className="flex gap-6 text-lg">
+        <li><Link to="/" className="hover:text-orange-400">Home</Link></li>
+        <li><Link to="/bookings" className="hover:text-orange-400">My Bookings</Link></li>
+        <li><Link to="/profile" className="hover:text-orange-400">Profile</Link></li>
+        <li><Link to="/contact" className="hover:text-orange-400">Contact</Link></li>
+      </ul>
     </nav>
   );
-};
-
-export default Navbar;
+}
