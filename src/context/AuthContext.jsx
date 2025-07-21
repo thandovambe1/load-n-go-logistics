@@ -1,17 +1,76 @@
-// src/firebase.js
-import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { auth, googleProvider } from "../firebase";
+import {
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDspiXD9hUiHRDOVLhnNoObl7MB_xBoLtk",
-  authDomain: "load-n-go-logistics.firebaseapp.com",
-  projectId: "load-n-go-logistics",
-  storageBucket: "load-n-go-logistics.firebasestorage.app",
-  messagingSenderId: "597245927020",
-  appId: "1:597245927020:web:b42d81d58e363433578249",
-  measurementId: "G-NL5KWT8ZPB"
+const AuthContext = createContext();
+
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // Monitor user login state
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  // ✅ Google Sign-In
+  const loginWithGoogle = async () => {
+    try {
+      await signInWithPopup(auth, googleProvider);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // ✅ Email/Password Signup
+  const registerWithEmail = async (email, password, name) => {
+    try {
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+      await updateProfile(res.user, { displayName: name });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // ✅ Email/Password Login
+  const loginWithEmail = async (email, password) => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // ✅ Logout
+  const logout = async () => {
+    await signOut(auth);
+  };
+
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        loading,
+        loginWithGoogle,
+        registerWithEmail,
+        loginWithEmail,
+        logout,
+      }}
+    >
+      {!loading && children}
+    </AuthContext.Provider>
+  );
 };
 
-const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const googleProvider = new GoogleAuthProvider();
+export const useAuth = () => useContext(AuthContext);
