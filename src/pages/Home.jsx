@@ -4,7 +4,6 @@ import heroImage from "../assets/hero.jpg";
 export default function Home() {
   return (
     <div className="w-full">
-      {/* Hero Section */}
       <div className="relative">
         <img
           src={heroImage}
