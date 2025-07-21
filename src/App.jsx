@@ -1,20 +1,22 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Profile from "./pages/Profile";
 import MyBookings from "./pages/MyBookings";
+import Profile from "./pages/Profile";
+import Login from "./pages/Login";
 
-export default function App() {
+function App() {
   return (
     <Router>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/my-bookings" element={<MyBookings />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/bookings" element={<MyBookings />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
   );
 }
+
+export default App;
