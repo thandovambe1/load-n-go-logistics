@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
+import logo from "../assets/logo.png"; // ✅ Your logo image
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,27 +20,28 @@ const Navbar = () => {
     <nav className="bg-white shadow-md fixed top-0 w-full z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
         
-        {/* Logo */}
-        <div className="flex-shrink-0">
+        {/* ✅ Logo */}
+        <div className="flex items-center space-x-2">
+          <img src={logo} alt="Logo" className="h-10 w-auto" />
           <Link to="/" className="text-2xl font-bold text-orange-600">
             Load-N-Go
           </Link>
         </div>
 
-        {/* Desktop Menu */}
+        {/* ✅ Desktop Menu */}
         <div className="hidden md:flex items-center space-x-6">
           <Link to="/" className="hover:text-orange-500">Home</Link>
-          
-          {/* Services Dropdown */}
+
+          {/* ✅ Services Dropdown */}
           <div className="relative">
             <button
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="flex items-center hover:text-orange-500"
+              className="flex items-center hover:text-orange-500 transition"
             >
               Our Services <ChevronDown className="ml-1 h-4 w-4" />
             </button>
             {isDropdownOpen && (
-              <div className="absolute left-0 mt-2 w-64 bg-white shadow-lg rounded-lg py-2 z-50">
+              <div className="absolute left-0 mt-2 w-64 bg-white shadow-lg rounded-lg py-2 animate-fadeIn z-50">
                 {services.map((service, index) => (
                   <a
                     key={index}
@@ -55,16 +57,16 @@ const Navbar = () => {
 
           <Link to="/contact" className="hover:text-orange-500">Contact</Link>
 
-          {/* Book Now Button */}
+          {/* ✅ Premium Book Now Button */}
           <Link
             to="/book"
-            className="bg-orange-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-orange-600 transition"
+            className="bg-orange-500 text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:bg-orange-600 hover:shadow-lg hover:scale-105 transition transform duration-300"
           >
             Book Now
           </Link>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* ✅ Mobile Menu Button */}
         <div className="md:hidden">
           <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -72,7 +74,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* ✅ Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden bg-white shadow-lg px-4 pt-2 pb-4 space-y-2">
           <Link to="/" className="block hover:text-orange-500">Home</Link>
@@ -98,7 +100,7 @@ const Navbar = () => {
           <Link to="/contact" className="block hover:text-orange-500">Contact</Link>
           <Link
             to="/book"
-            className="block bg-orange-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-orange-600 transition"
+            className="block bg-orange-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-orange-600 hover:shadow-lg hover:scale-105 transition transform duration-300"
           >
             Book Now
           </Link>
