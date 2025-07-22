@@ -1,94 +1,115 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { Menu, X, Truck, Box, Car, Archive, Globe, Package, Bike } from "lucide-react";
+import { useState } from "react";
+import { Menu, X, ChevronDown } from "lucide-react";
 
-const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
-    <nav className="bg-blue-700 text-white shadow-md fixed w-full top-0 z-50">
-      <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+    <nav className="bg-white shadow-md sticky top-0 z-50">
+      <div className="container mx-auto px-4 flex justify-between items-center py-3">
         {/* Logo */}
-        <Link to="/" className="text-2xl font-bold tracking-wide flex items-center">
-          🚚 Load-N-Go
-        </Link>
+        <a href="/" className="flex items-center space-x-2">
+          <img src="/logo.png" alt="Load-N-Go" className="w-14 h-auto" />
+          <span className="text-xl font-bold text-gray-800">Load-N-Go</span>
+        </a>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-6 items-center">
-          <Link to="/" className="hover:text-orange-400">Home</Link>
+        <div className="hidden md:flex items-center space-x-6">
+          <a href="/" className="hover:text-orange-500 font-medium">Home</a>
 
           {/* Our Services Dropdown */}
-          <div
-            className="relative"
-            onMouseEnter={() => setServicesOpen(true)}
-            onMouseLeave={() => setServicesOpen(false)}
-          >
-            <button className="flex items-center hover:text-orange-400">
-              Our Services ▾
+          <div className="relative">
+            <button
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              className="flex items-center hover:text-orange-500 font-medium"
+            >
+              Our Services <ChevronDown className="w-4 h-4 ml-1" />
             </button>
-            {servicesOpen && (
-              <div className="absolute top-8 left-0 bg-white text-black rounded-lg shadow-xl p-4 w-80 animate-fadeIn">
-                <ul className="space-y-3">
-                  <li className="flex items-center gap-2 hover:text-blue-700">
-                    <Box size={18} /> Furniture/Home removals & delivery
-                  </li>
-                  <li className="flex items-center gap-2 hover:text-blue-700">
-                    <Package size={18} /> Office & Home Furniture & appliance delivery
-                  </li>
-                  <li className="flex items-center gap-2 hover:text-blue-700">
-                    <Globe size={18} /> International removals
-                  </li>
-                  <li className="flex items-center gap-2 hover:text-blue-700">
-                    <Archive size={18} /> Storage services
-                  </li>
-                  <li className="flex items-center gap-2 hover:text-blue-700">
-                    <Car size={18} /> Car transport
-                  </li>
-                  <li className="flex items-center gap-2 hover:text-blue-700">
-                    <Bike size={18} /> Motorcycle transport
-                  </li>
-                </ul>
+
+            {isDropdownOpen && (
+              <div className="absolute top-10 left-0 bg-white shadow-lg rounded-lg w-64 py-2 animate-fadeIn">
+                {[
+                  "Furniture/Home Removals & Delivery",
+                  "Office & Home Furniture & Appliance Delivery",
+                  "International Removals",
+                  "Storage Services",
+                  "Car Transport",
+                  "Motorcycle Transport"
+                ].map((service, index) => (
+                  <a
+                    key={index}
+                    href="#"
+                    className="block px-4 py-2 hover:bg-orange-100 text-gray-700"
+                  >
+                    {service}
+                  </a>
+                ))}
               </div>
             )}
           </div>
 
-          <Link to="/bookings" className="hover:text-orange-400">My Bookings</Link>
-          <Link to="/contact" className="hover:text-orange-400">Contact</Link>
+          <a href="/my-bookings" className="hover:text-orange-500 font-medium">My Bookings</a>
+          <a href="/profile" className="hover:text-orange-500 font-medium">Profile</a>
+
+          {/* Book Now Button */}
+          <a
+            href="/book"
+            className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg font-semibold shadow-md"
+          >
+            Book Now
+          </a>
         </div>
 
         {/* Mobile Menu Button */}
-        <button className="md:hidden" onClick={() => setMenuOpen(!menuOpen)}>
-          {menuOpen ? <X size={28} /> : <Menu size={28} />}
+        <button
+          className="md:hidden"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {isOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
 
       {/* Mobile Menu */}
-      {menuOpen && (
-        <div className="md:hidden bg-blue-600 text-white flex flex-col space-y-4 p-4">
-          <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
+      {isOpen && (
+        <div className="md:hidden bg-white shadow-md">
+          <a href="/" className="block px-4 py-2 hover:bg-gray-100">Home</a>
           <button
-            className="flex justify-between"
-            onClick={() => setServicesOpen(!servicesOpen)}
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            className="w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center"
           >
-            Our Services {servicesOpen ? "▲" : "▼"}
+            Our Services <ChevronDown className="w-4 h-4 ml-1" />
           </button>
-          {servicesOpen && (
-            <ul className="pl-4 space-y-2">
-              <li>Furniture/Home removals</li>
-              <li>Office & Home delivery</li>
-              <li>International removals</li>
-              <li>Storage services</li>
-              <li>Car transport</li>
-              <li>Motorcycle transport</li>
-            </ul>
+          {isDropdownOpen && (
+            <div className="bg-gray-50 px-4">
+              {[
+                "Furniture/Home Removals & Delivery",
+                "Office & Home Furniture & Appliance Delivery",
+                "International Removals",
+                "Storage Services",
+                "Car Transport",
+                "Motorcycle Transport"
+              ].map((service, index) => (
+                <a
+                  key={index}
+                  href="#"
+                  className="block px-2 py-1 hover:text-orange-500"
+                >
+                  {service}
+                </a>
+              ))}
+            </div>
           )}
-          <Link to="/bookings" onClick={() => setMenuOpen(false)}>My Bookings</Link>
-          <Link to="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
+          <a href="/my-bookings" className="block px-4 py-2 hover:bg-gray-100">My Bookings</a>
+          <a href="/profile" className="block px-4 py-2 hover:bg-gray-100">Profile</a>
+          <a
+            href="/book"
+            className="block text-center bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 m-4 rounded-lg"
+          >
+            Book Now
+          </a>
         </div>
       )}
     </nav>
   );
-};
-
-export default Navbar;
+}
