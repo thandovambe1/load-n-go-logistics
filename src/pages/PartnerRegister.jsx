@@ -1,106 +1,131 @@
+// src/pages/PartnerRegister.jsx
 import React, { useState } from "react";
-import { db, storage } from "../firebase"; // ✅ Ensure firebase.js is set up
+import { db, storage } from "../firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
-const PartnerRegister = () => {
+export default function PartnerRegister() {
   const [formData, setFormData] = useState({
     name: "",
+    surname: "",
     idNumber: "",
     address: "",
     vehicleType: "",
     vehicleReg: "",
+    license: "",
+    pdp: "",
+    insurance: ""
   });
 
-  const [photo, setPhoto] = useState(null);
-  const [license, setLicense] = useState(null);
-  const [pdp, setPdp] = useState(null);
-  const [insurance, setInsurance] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [files, setFiles] = useState({
+    photo: null,
+    idDocument: null,
+    licenseDoc: null,
+    insuranceDoc: null
+  });
 
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  // ✅ Handle text input change
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleFileChange = (e, setter) => {
-    setter(e.target.files[0]);
+  // ✅ Handle file upload selection
+  const handleFileChange = (e) => {
+    setFiles({ ...files, [e.target.name]: e.target.files[0] });
   };
 
-  const uploadFile = async (file, path) => {
-    const fileRef = ref(storage, `partners/${path}/${file.name}`);
+  // ✅ Upload file to Firebase Storage
+  const uploadFile = async (file, folder) => {
+    const fileRef = ref(storage, `${folder}/${file.name}-${Date.now()}`);
     await uploadBytes(fileRef, file);
     return await getDownloadURL(fileRef);
   };
 
+  // ✅ Submit the form
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setMessage("");
 
     try {
-      // Upload files
-      const photoURL = photo ? await uploadFile(photo, "photo") : "";
-      const licenseURL = license ? await uploadFile(license, "license") : "";
-      const pdpURL = pdp ? await uploadFile(pdp, "pdp") : "";
-      const insuranceURL = insurance ? await uploadFile(insurance, "insurance") : "";
+      // Upload files to Firebase Storage
+      const photoURL = files.photo ? await uploadFile(files.photo, "photos") : "";
+      const idDocURL = files.idDocument ? await uploadFile(files.idDocument, "idDocs") : "";
+      const licenseURL = files.licenseDoc ? await uploadFile(files.licenseDoc, "licenses") : "";
+      const insuranceURL = files.insuranceDoc ? await uploadFile(files.insuranceDoc, "insurance") : "";
 
       // Save to Firestore
-      await addDoc(collection(db, "partners"), {
+      await addDoc(collection(db, "drivers"), {
         ...formData,
         photoURL,
+        idDocURL,
         licenseURL,
-        pdpURL,
         insuranceURL,
-        createdAt: new Date(),
+        createdAt: new Date()
       });
 
-      alert("Partner registered successfully!");
-      setFormData({ name: "", idNumber: "", address: "", vehicleType: "", vehicleReg: "" });
-      setPhoto(null);
-      setLicense(null);
-      setPdp(null);
-      setInsurance(null);
+      setMessage("✅ Driver registered successfully!");
+      setFormData({
+        name: "",
+        surname: "",
+        idNumber: "",
+        address: "",
+        vehicleType: "",
+        vehicleReg: "",
+        license: "",
+        pdp: "",
+        insurance: ""
+      });
+      setFiles({ photo: null, idDocument: null, licenseDoc: null, insuranceDoc: null });
     } catch (error) {
       console.error(error);
-      alert("Error registering partner");
+      setMessage("❌ Error registering driver. Please try again.");
     }
 
     setLoading(false);
   };
 
   return (
-    <div className="p-6 max-w-xl mx-auto bg-white shadow-lg rounded-lg">
-      <h2 className="text-2xl font-bold mb-4">Partner Registration</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input type="text" name="name" placeholder="Name & Surname" value={formData.name} onChange={handleChange} className="w-full p-2 border rounded" required />
-        <input type="text" name="idNumber" placeholder="ID Number" value={formData.idNumber} onChange={handleChange} className="w-full p-2 border rounded" required />
-        <input type="text" name="address" placeholder="Residential Address" value={formData.address} onChange={handleChange} className="w-full p-2 border rounded" required />
-        <select name="vehicleType" value={formData.vehicleType} onChange={handleChange} className="w-full p-2 border rounded" required>
-          <option value="">Select Vehicle Type</option>
-          <option value="Car">Car</option>
-          <option value="Van">Van</option>
-          <option value="Truck">Truck</option>
-        </select>
-        <input type="text" name="vehicleReg" placeholder="Vehicle Registration" value={formData.vehicleReg} onChange={handleChange} className="w-full p-2 border rounded" required />
+    <div className="min-h-screen bg-gray-100 flex justify-center items-center p-6">
+      <div className="bg-white shadow-lg rounded-xl p-8 w-full max-w-2xl">
+        <h2 className="text-2xl font-bold mb-6 text-center text-blue-800">Partner Driver Registration</h2>
 
-        {/* File Uploads */}
-        <label>Upload Photo:</label>
-        <input type="file" onChange={(e) => handleFileChange(e, setPhoto)} className="w-full p-2 border rounded" required />
+        {message && <p className="text-center mb-4 text-green-600">{message}</p>}
 
-        <label>Upload License:</label>
-        <input type="file" onChange={(e) => handleFileChange(e, setLicense)} className="w-full p-2 border rounded" required />
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Text Inputs */}
+          <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleChange} className="w-full p-2 border rounded" required />
+          <input type="text" name="surname" placeholder="Surname" value={formData.surname} onChange={handleChange} className="w-full p-2 border rounded" required />
+          <input type="text" name="idNumber" placeholder="ID Number" value={formData.idNumber} onChange={handleChange} className="w-full p-2 border rounded" required />
+          <input type="text" name="address" placeholder="Residential Address" value={formData.address} onChange={handleChange} className="w-full p-2 border rounded" required />
+          <input type="text" name="vehicleType" placeholder="Vehicle Type" value={formData.vehicleType} onChange={handleChange} className="w-full p-2 border rounded" required />
+          <input type="text" name="vehicleReg" placeholder="Vehicle Registration" value={formData.vehicleReg} onChange={handleChange} className="w-full p-2 border rounded" required />
+          <input type="text" name="license" placeholder="Driver's License Number" value={formData.license} onChange={handleChange} className="w-full p-2 border rounded" required />
+          <input type="text" name="pdp" placeholder="PDP Number" value={formData.pdp} onChange={handleChange} className="w-full p-2 border rounded" />
+          <input type="text" name="insurance" placeholder="Insurance Provider" value={formData.insurance} onChange={handleChange} className="w-full p-2 border rounded" />
 
-        <label>Upload PDP:</label>
-        <input type="file" onChange={(e) => handleFileChange(e, setPdp)} className="w-full p-2 border rounded" />
+          {/* File Inputs */}
+          <label className="block font-semibold">Upload Photo:</label>
+          <input type="file" name="photo" onChange={handleFileChange} className="w-full p-2 border rounded" />
 
-        <label>Upload Vehicle Insurance:</label>
-        <input type="file" onChange={(e) => handleFileChange(e, setInsurance)} className="w-full p-2 border rounded" />
+          <label className="block font-semibold">Upload ID Document:</label>
+          <input type="file" name="idDocument" onChange={handleFileChange} className="w-full p-2 border rounded" />
 
-        <button type="submit" disabled={loading} className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded">
-          {loading ? "Submitting..." : "Submit"}
-        </button>
-      </form>
+          <label className="block font-semibold">Upload Driver's License:</label>
+          <input type="file" name="licenseDoc" onChange={handleFileChange} className="w-full p-2 border rounded" />
+
+          <label className="block font-semibold">Upload Insurance Document:</label>
+          <input type="file" name="insuranceDoc" onChange={handleFileChange} className="w-full p-2 border rounded" />
+
+          {/* Submit Button */}
+          <button type="submit" className="w-full bg-orange-500 text-white py-2 rounded hover:bg-orange-600" disabled={loading}>
+            {loading ? "Registering..." : "Register Driver"}
+          </button>
+        </form>
+      </div>
     </div>
   );
-};
-
-export default PartnerRegister;
+}
