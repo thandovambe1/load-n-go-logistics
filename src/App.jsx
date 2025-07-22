@@ -6,11 +6,11 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <div className="pt-20">
+      <div className="pt-16">
         <Routes>
-          <Route path="/" element={<h1 className="text-center mt-10">Home Page</h1>} />
-          <Route path="/bookings" element={<h1 className="text-center mt-10">My Bookings</h1>} />
-          <Route path="/contact" element={<h1 className="text-center mt-10">Contact Page</h1>} />
+          <Route path="/" element={<h1 className="text-center text-3xl">Home Page</h1>} />
+          <Route path="/book" element={<h1 className="text-center text-3xl">Booking Page</h1>} />
+          <Route path="/contact" element={<h1 className="text-center text-3xl">Contact Page</h1>} />
         </Routes>
       </div>
     </Router>
