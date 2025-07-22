@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
-import logo from "../assets/logo.png"; // ✅ Your logo image
+import logo from "../assets/logo.jpg"; // ✅ Your logo image
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
