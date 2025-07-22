@@ -127,3 +127,19 @@ body {
   font-size: 1.2rem;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
 }
+
+/* Dropdown animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease-in-out;
+}
