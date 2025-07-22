@@ -12,7 +12,7 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link to="/">
-              <img src="/logo.png" alt="Load-N-Go" className="h-10" />
+              <img src="/logo.jpg" alt="Load-N-Go" className="h-10" />
             </Link>
           </div>
 
