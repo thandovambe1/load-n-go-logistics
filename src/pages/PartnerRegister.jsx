@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import { db, storage } from "../firebase"; // ✅ Make sure firebase.js exports these
 import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+const { user } = useAuth();
+const navigate = useNavigate();
+
+useEffect(() => {
+  if (!user) navigate("/login");
+}, [user, navigate]);
 
 export default function PartnerRegister() {
   const [formData, setFormData] = useState({
