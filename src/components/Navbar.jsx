@@ -1,46 +1,50 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
+import { Link } from "react-router-dom";
 
-export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+const Navbar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  const services = [
+    "Furniture/Home Removals & Delivery",
+    "Office & Home Furniture & Appliance Delivery",
+    "International Removals",
+    "Storage Services",
+    "Car Transport",
+    "Motorcycle Transport"
+  ];
+
   return (
-    <nav className="bg-white shadow-md sticky top-0 z-50">
-      <div className="container mx-auto px-4 flex justify-between items-center py-3">
+    <nav className="bg-white shadow-md fixed top-0 w-full z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+        
         {/* Logo */}
-        <a href="/" className="flex items-center space-x-2">
-          <img src="/logo.png" alt="Load-N-Go" className="w-14 h-auto" />
-          <span className="text-xl font-bold text-gray-800">Load-N-Go</span>
-        </a>
+        <div className="flex-shrink-0">
+          <Link to="/" className="text-2xl font-bold text-orange-600">
+            Load-N-Go
+          </Link>
+        </div>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-6">
-          <a href="/" className="hover:text-orange-500 font-medium">Home</a>
-
-          {/* Our Services Dropdown */}
+          <Link to="/" className="hover:text-orange-500">Home</Link>
+          
+          {/* Services Dropdown */}
           <div className="relative">
             <button
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="flex items-center hover:text-orange-500 font-medium"
+              className="flex items-center hover:text-orange-500"
             >
-              Our Services <ChevronDown className="w-4 h-4 ml-1" />
+              Our Services <ChevronDown className="ml-1 h-4 w-4" />
             </button>
-
             {isDropdownOpen && (
-              <div className="absolute top-10 left-0 bg-white shadow-lg rounded-lg w-64 py-2 animate-fadeIn">
-                {[
-                  "Furniture/Home Removals & Delivery",
-                  "Office & Home Furniture & Appliance Delivery",
-                  "International Removals",
-                  "Storage Services",
-                  "Car Transport",
-                  "Motorcycle Transport"
-                ].map((service, index) => (
+              <div className="absolute left-0 mt-2 w-64 bg-white shadow-lg rounded-lg py-2 z-50">
+                {services.map((service, index) => (
                   <a
                     key={index}
                     href="#"
-                    className="block px-4 py-2 hover:bg-orange-100 text-gray-700"
+                    className="block px-4 py-2 hover:bg-gray-100 text-gray-700"
                   >
                     {service}
                   </a>
@@ -49,67 +53,59 @@ export default function Navbar() {
             )}
           </div>
 
-          <a href="/my-bookings" className="hover:text-orange-500 font-medium">My Bookings</a>
-          <a href="/profile" className="hover:text-orange-500 font-medium">Profile</a>
+          <Link to="/contact" className="hover:text-orange-500">Contact</Link>
 
           {/* Book Now Button */}
-          <a
-            href="/book"
-            className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg font-semibold shadow-md"
+          <Link
+            to="/book"
+            className="bg-orange-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-orange-600 transition"
           >
             Book Now
-          </a>
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
-        <button
-          className="md:hidden"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
+        <div className="md:hidden">
+          <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
-      {isOpen && (
-        <div className="md:hidden bg-white shadow-md">
-          <a href="/" className="block px-4 py-2 hover:bg-gray-100">Home</a>
+      {isMenuOpen && (
+        <div className="md:hidden bg-white shadow-lg px-4 pt-2 pb-4 space-y-2">
+          <Link to="/" className="block hover:text-orange-500">Home</Link>
           <button
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            className="w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center"
+            className="flex items-center w-full text-left hover:text-orange-500"
           >
-            Our Services <ChevronDown className="w-4 h-4 ml-1" />
+            Our Services <ChevronDown className="ml-1 h-4 w-4" />
           </button>
           {isDropdownOpen && (
-            <div className="bg-gray-50 px-4">
-              {[
-                "Furniture/Home Removals & Delivery",
-                "Office & Home Furniture & Appliance Delivery",
-                "International Removals",
-                "Storage Services",
-                "Car Transport",
-                "Motorcycle Transport"
-              ].map((service, index) => (
+            <div className="ml-4">
+              {services.map((service, index) => (
                 <a
                   key={index}
                   href="#"
-                  className="block px-2 py-1 hover:text-orange-500"
+                  className="block py-1 hover:text-orange-500"
                 >
                   {service}
                 </a>
               ))}
             </div>
           )}
-          <a href="/my-bookings" className="block px-4 py-2 hover:bg-gray-100">My Bookings</a>
-          <a href="/profile" className="block px-4 py-2 hover:bg-gray-100">Profile</a>
-          <a
-            href="/book"
-            className="block text-center bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 m-4 rounded-lg"
+          <Link to="/contact" className="block hover:text-orange-500">Contact</Link>
+          <Link
+            to="/book"
+            className="block bg-orange-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-orange-600 transition"
           >
             Book Now
-          </a>
+          </Link>
         </div>
       )}
     </nav>
   );
-}
+};
+
+export default Navbar;
