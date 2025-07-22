@@ -1,106 +1,98 @@
 import React, { useState } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
-import logo from "../assets/logo.jpg"; // ✅ Your logo image
 
-const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-  const services = [
-    "Furniture/Home Removals & Delivery",
-    "Office & Home Furniture & Appliance Delivery",
-    "International Removals",
-    "Storage Services",
-    "Car Transport",
-    "Motorcycle Transport"
-  ];
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
 
   return (
-    <nav className="bg-white shadow-md fixed top-0 w-full z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
-        
-        {/* ✅ Logo */}
-        <div className="flex items-center space-x-2">
-          <img src={logo} alt="Logo" className="h-10 w-auto" />
-          <Link to="/" className="text-2xl font-bold text-orange-600">
-            Load-N-Go
-          </Link>
-        </div>
-
-        {/* ✅ Desktop Menu */}
-        <div className="hidden md:flex items-center space-x-6">
-          <Link to="/" className="hover:text-orange-500">Home</Link>
-
-          {/* ✅ Services Dropdown */}
-          <div className="relative">
-            <button
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="flex items-center hover:text-orange-500 transition"
-            >
-              Our Services <ChevronDown className="ml-1 h-4 w-4" />
-            </button>
-            {isDropdownOpen && (
-              <div className="absolute left-0 mt-2 w-64 bg-white shadow-lg rounded-lg py-2 animate-fadeIn z-50">
-                {services.map((service, index) => (
-                  <a
-                    key={index}
-                    href="#"
-                    className="block px-4 py-2 hover:bg-gray-100 text-gray-700"
-                  >
-                    {service}
-                  </a>
-                ))}
-              </div>
-            )}
+    <nav className="bg-white shadow-md fixed w-full z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          {/* Logo */}
+          <div className="flex-shrink-0">
+            <Link to="/">
+              <img src="/logo.png" alt="Load-N-Go" className="h-10" />
+            </Link>
           </div>
 
-          <Link to="/contact" className="hover:text-orange-500">Contact</Link>
+          {/* Desktop Menu */}
+          <div className="hidden md:flex space-x-8 items-center">
+            <Link to="/" className="text-gray-700 hover:text-orange-500 font-medium">
+              Home
+            </Link>
 
-          {/* ✅ Premium Book Now Button */}
-          <Link
-            to="/book"
-            className="bg-orange-500 text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:bg-orange-600 hover:shadow-lg hover:scale-105 transition transform duration-300"
-          >
-            Book Now
-          </Link>
-        </div>
+            {/* Our Services Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setServicesOpen(!servicesOpen)}
+                className="text-gray-700 hover:text-orange-500 font-medium flex items-center"
+              >
+                Our Services ▾
+              </button>
+              {servicesOpen && (
+                <div className="absolute top-full left-0 mt-2 w-56 bg-white shadow-lg rounded-lg border border-gray-200">
+                  <Link to="#" className="block px-4 py-2 hover:bg-gray-100">Furniture/Home Removals</Link>
+                  <Link to="#" className="block px-4 py-2 hover:bg-gray-100">Office & Appliance Delivery</Link>
+                  <Link to="#" className="block px-4 py-2 hover:bg-gray-100">International Removals</Link>
+                  <Link to="#" className="block px-4 py-2 hover:bg-gray-100">Storage Services</Link>
+                  <Link to="#" className="block px-4 py-2 hover:bg-gray-100">Car Transport</Link>
+                  <Link to="#" className="block px-4 py-2 hover:bg-gray-100">Motorcycle Transport</Link>
+                </div>
+              )}
+            </div>
 
-        {/* ✅ Mobile Menu Button */}
-        <div className="md:hidden">
-          <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+            <Link to="/partner-register" className="text-gray-700 hover:text-orange-500 font-medium">
+              Become a Driver
+            </Link>
+
+            {/* Book Now Button */}
+            <Link
+              to="#"
+              className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md font-semibold"
+            >
+              Book Now
+            </Link>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-gray-700 hover:text-orange-500"
+            >
+              ☰
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* ✅ Mobile Menu */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-white shadow-lg px-4 pt-2 pb-4 space-y-2">
-          <Link to="/" className="block hover:text-orange-500">Home</Link>
+      {/* Mobile Menu */}
+      {isOpen && (
+        <div className="md:hidden bg-white shadow-md">
+          <Link to="/" className="block px-4 py-2 hover:bg-gray-100">Home</Link>
           <button
-            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            className="flex items-center w-full text-left hover:text-orange-500"
+            onClick={() => setServicesOpen(!servicesOpen)}
+            className="block w-full text-left px-4 py-2 hover:bg-gray-100"
           >
-            Our Services <ChevronDown className="ml-1 h-4 w-4" />
+            Our Services ▾
           </button>
-          {isDropdownOpen && (
-            <div className="ml-4">
-              {services.map((service, index) => (
-                <a
-                  key={index}
-                  href="#"
-                  className="block py-1 hover:text-orange-500"
-                >
-                  {service}
-                </a>
-              ))}
+          {servicesOpen && (
+            <div className="pl-4">
+              <Link to="#" className="block px-4 py-2 hover:bg-gray-100">Furniture/Home Removals</Link>
+              <Link to="#" className="block px-4 py-2 hover:bg-gray-100">Office & Appliance Delivery</Link>
+              <Link to="#" className="block px-4 py-2 hover:bg-gray-100">International Removals</Link>
+              <Link to="#" className="block px-4 py-2 hover:bg-gray-100">Storage Services</Link>
+              <Link to="#" className="block px-4 py-2 hover:bg-gray-100">Car Transport</Link>
+              <Link to="#" className="block px-4 py-2 hover:bg-gray-100">Motorcycle Transport</Link>
             </div>
           )}
-          <Link to="/contact" className="block hover:text-orange-500">Contact</Link>
+          <Link to="/partner-register" className="block px-4 py-2 hover:bg-gray-100">
+            Become a Driver
+          </Link>
           <Link
-            to="/book"
-            className="block bg-orange-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-orange-600 hover:shadow-lg hover:scale-105 transition transform duration-300"
+            to="#"
+            className="block px-4 py-2 bg-orange-500 text-white hover:bg-orange-600 text-center rounded-md"
           >
             Book Now
           </Link>
@@ -108,6 +100,4 @@ const Navbar = () => {
       )}
     </nav>
   );
-};
-
-export default Navbar;
+}
