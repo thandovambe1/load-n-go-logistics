@@ -30,6 +30,7 @@ const Navbar = () => {
         </div>
         <Link to="/bookings" className="hover:text-accent">My Bookings</Link>
         <Link to="/partner-register" className="hover:text-accent">Partner Register</Link>
+        <Link to="/contact-support" className="hover:text-accent">Contact</Link>
       </div>
 
       {/* Mobile Menu */}
@@ -59,6 +60,7 @@ const Navbar = () => {
           )}
           <Link to="/bookings" className="block py-2 hover:text-accent">My Bookings</Link>
           <Link to="/partner-register" className="block py-2 hover:text-accent">Partner Register</Link>
+          <Link to="/contact-support" className="block py-2 hover:text-accent">Contact</Link>
         </div>
       )}
     </nav>
