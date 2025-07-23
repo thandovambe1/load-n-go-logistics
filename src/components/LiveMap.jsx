@@ -13,7 +13,7 @@ const defaultCenter = {
 
 const LiveMap = ({ driverLocation }) => {
   return (
-    <LoadScript googleMapsApiKey="YOUR_GOOGLE_MAPS_API_KEY">
+    <LoadScript googleMapsApiKey="AIzaSyARfpJ1uTkjnuVrk79Go0PdeYESyirNco0">
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={driverLocation || defaultCenter}
