@@ -1,32 +1,25 @@
 import React from "react";
 
 const ContactSupport = () => {
-  const whatsappNumber = "27810554566"; // Replace with your WhatsApp number
-
   return (
-    <div className="p-8">
-      <h1 className="text-3xl font-bold text-primary mb-6">Contact Support</h1>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
+      <h1 className="text-3xl font-bold mb-4">Contact Us</h1>
+      <p className="text-lg text-gray-700 mb-6">
+        Have questions? Reach out to us at:
+      </p>
+      <p className="text-lg font-semibold">📧 support@load-n-go.com</p>
+      <p className="text-lg font-semibold">📞 +27 81 055 4566</p>
       <a
-        href={`https://wa.me/${whatsappNumber}`}
-        className="bg-green-500 text-white px-6 py-3 rounded-lg shadow hover:bg-green-600"
+        href="https://wa.me/27810554566"
         target="_blank"
         rel="noopener noreferrer"
+        className="mt-6 bg-green-500 text-white px-6 py-3 rounded-lg shadow hover:bg-green-600"
       >
         Chat on WhatsApp
       </a>
-      <div className="mt-6">
-        <h2 className="text-xl mb-4">Send us a message</h2>
-        <form className="space-y-4 max-w-md">
-          <input type="text" placeholder="Your Name" className="border p-2 w-full" />
-          <input type="email" placeholder="Your Email" className="border p-2 w-full" />
-          <textarea placeholder="Message" className="border p-2 w-full"></textarea>
-          <button type="submit" className="bg-accent text-white px-6 py-2 rounded">
-            Send
-          </button>
-        </form>
-      </div>
     </div>
   );
 };
 
-export default ContactSupport;
+export default Contact;
+
