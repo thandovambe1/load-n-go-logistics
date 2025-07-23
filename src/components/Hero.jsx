@@ -1,5 +1,5 @@
 import React from "react";
-import heroImage from "../assets/hero.jpg"; // Make sure you have hero.jpg in src/assets
+import heroImage from "../assets/hero.jpg"; // Make sure hero.jpg exists in src/assets
 
 const Hero = () => {
   return (
@@ -11,8 +11,11 @@ const Hero = () => {
         <p className="text-gray-700 mb-6">
           Fast, reliable, and affordable logistics at your fingertips.
         </p>
-        <button className="bg-accent text-white px-6 py-3 rounded-lg shadow-lg hover:bg-orange-600">
-          Book a Delivery
+        <button
+          onClick={() => window.open("https://pay.yoco.com/YOUR-PAYMENT-LINK", "_blank")}
+          className="bg-accent text-white px-6 py-3 rounded-lg shadow-lg hover:bg-orange-600"
+        >
+          Pay with Yoco
         </button>
       </div>
       <div className="mt-6 md:mt-0">
