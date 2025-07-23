@@ -25,7 +25,7 @@ const LiveMap = ({ driverLocation, destination }) => {
     const originStr = `${origin.lat},${origin.lng}`;
     const destStr = `${dest.lat},${dest.lng}`;
     const response = await fetch(
-      `https://maps.googleapis.com/maps/api/directions/json?origin=${originStr}&destination=${destStr}&key=YOUR_GOOGLE_MAPS_API_KEY`
+      `https://maps.googleapis.com/maps/api/directions/json?origin=${originStr}&destination=${destStr}&key=AIzaSyARfpJ1uTkjnuVrk79Go0PdeYESyirNco0`
     );
     const data = await response.json();
     if (data.routes && data.routes.length > 0) {
@@ -36,7 +36,7 @@ const LiveMap = ({ driverLocation, destination }) => {
   };
 
   return (
-    <LoadScript googleMapsApiKey="YOUR_GOOGLE_MAPS_API_KEY">
+    <LoadScript googleMapsApiKey="AIzaSyARfpJ1uTkjnuVrk79Go0PdeYESyirNco0">
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={driverLocation || defaultCenter}
