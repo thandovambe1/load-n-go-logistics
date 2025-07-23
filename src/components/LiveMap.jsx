@@ -7,13 +7,13 @@ const containerStyle = {
 };
 
 const defaultCenter = {
-  lat: -33.918861, // Cape Town
+  lat: -33.918861, // Example: Cape Town
   lng: 18.423300,
 };
 
 const LiveMap = ({ driverLocation }) => {
   return (
-    <LoadScript googleMapsApiKey="AIzaSyARfpJ1uTkjnuVrk79Go0PdeYESyirNco0">
+    <LoadScript googleMapsApiKey="YOUR_GOOGLE_MAPS_API_KEY">
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={driverLocation || defaultCenter}
