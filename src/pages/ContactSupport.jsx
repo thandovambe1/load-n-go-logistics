@@ -1,7 +1,7 @@
 import React from "react";
 
 const ContactSupport = () => {
-  const whatsappNumber = "27810554566"; // Replace with your number
+  const whatsappNumber = "27810554566"; // Replace with your WhatsApp number
 
   return (
     <div className="p-8">
