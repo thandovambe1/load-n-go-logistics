@@ -1,27 +1,21 @@
 import React from "react";
 import heroImage from "../assets/hero.jpg"; // Make sure hero.jpg exists in src/assets
+import FAQ from "../components/FAQ";
 
 const Hero = () => {
   return (
-    <section className="bg-gray-100 flex flex-col md:flex-row items-center justify-between px-8 py-12">
-      <div className="max-w-lg text-center md:text-left">
-        <h1 className="text-4xl font-bold text-primary mb-4">
-          Move Anything, Anytime!
-        </h1>
-        <p className="text-gray-700 mb-6">
-          Fast, reliable, and affordable logistics at your fingertips.
-        </p>
-        <button
-          onClick={() => window.open("https://pay.yoco.com/YOUR-PAYMENT-LINK", "_blank")}
-          className="bg-accent text-white px-6 py-3 rounded-lg shadow-lg hover:bg-orange-600"
-        >
-          Pay with Yoco
-        </button>
-      </div>
-      <div className="mt-6 md:mt-0">
-        <img src={heroImage} alt="Hero" className="rounded-2xl shadow-lg w-full max-w-md" />
-      </div>
-    </section>
+    <div>
+      <section className="text-center py-20 bg-gradient-to-r from-blue-500 to-orange-500 text-white">
+        <h1 className="text-5xl font-bold mb-4">Welcome to Load-N-Go</h1>
+        <p className="text-lg mb-6">Fast, reliable logistics solutions at your fingertips</p>
+        <a href="/services" className="bg-white text-blue-500 px-6 py-3 rounded-full font-bold hover:bg-gray-100">
+          Book Now
+        </a>
+      </section>
+
+      {/* ✅ Add FAQ Below */}
+      <FAQ />
+    </div>
   );
 };
 
