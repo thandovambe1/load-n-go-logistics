@@ -4,46 +4,62 @@ import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const PartnerRegister = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    idNumber: "",
-    address: "",
-    vehicleType: "",
-    registration: "",
-  });
+  const [name, setName] = useState("");
+  const [vehicleType, setVehicleType] = useState("");
   const [file, setFile] = useState(null);
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleFile = (e) => {
-    setFile(e.target.files[0]);
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let photoURL = "";
+    let fileURL = "";
+
     if (file) {
       const storageRef = ref(storage, `partners/${file.name}`);
       await uploadBytes(storageRef, file);
-      photoURL = await getDownloadURL(storageRef);
+      fileURL = await getDownloadURL(storageRef);
     }
-    await addDoc(collection(db, "partners"), { ...formData, photoURL });
-    alert("Partner Registered!");
+
+    await addDoc(collection(db, "partners"), {
+      name,
+      vehicleType,
+      fileURL
+    });
+
+    alert("Partner registered successfully!");
+    setName("");
+    setVehicleType("");
+    setFile(null);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-6 max-w-lg mx-auto">
-      <h2 className="text-2xl mb-4">Register as a Driver</h2>
-      <input name="name" placeholder="Name" onChange={handleChange} className="border p-2 w-full mb-3" />
-      <input name="idNumber" placeholder="ID Number" onChange={handleChange} className="border p-2 w-full mb-3" />
-      <input name="address" placeholder="Address" onChange={handleChange} className="border p-2 w-full mb-3" />
-      <input name="vehicleType" placeholder="Vehicle Type" onChange={handleChange} className="border p-2 w-full mb-3" />
-      <input name="registration" placeholder="Registration" onChange={handleChange} className="border p-2 w-full mb-3" />
-      <input type="file" onChange={handleFile} className="mb-3" />
-      <button className="bg-blue-500 text-white p-2 rounded">Submit</button>
-    </form>
+    <div className="p-8">
+      <h1 className="text-3xl font-bold text-primary mb-6">Partner Registration</h1>
+      <form onSubmit={handleSubmit} className="space-y-4 max-w-md">
+        <input
+          type="text"
+          placeholder="Your Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="border p-2 w-full"
+          required
+        />
+        <input
+          type="text"
+          placeholder="Vehicle Type"
+          value={vehicleType}
+          onChange={(e) => setVehicleType(e.target.value)}
+          className="border p-2 w-full"
+          required
+        />
+        <input
+          type="file"
+          onChange={(e) => setFile(e.target.files[0])}
+          className="border p-2 w-full"
+        />
+        <button type="submit" className="bg-accent text-white px-6 py-2 rounded">
+          Register
+        </button>
+      </form>
+    </div>
   );
 };
 
