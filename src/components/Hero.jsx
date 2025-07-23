@@ -1,6 +1,6 @@
+import FAQ from "../components/FAQ";
 import React from "react";
 import heroImage from "../assets/hero.jpg"; // Make sure hero.jpg exists in src/assets
-import FAQ from "../components/FAQ";
 
 const Hero = () => {
   return (
