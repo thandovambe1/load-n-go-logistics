@@ -2,16 +2,18 @@
 export default {
   content: [
     "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
     extend: {
       colors: {
-        primary: "#0A2342",   // Navy Blue
-        secondary: "#FF6F00", // Orange
-        accent: "#F5F5F5",    // Light Grey
-      },
-    },
+        primary: '#001f3f', // Navy Blue
+        accent: '#ff6600',  // Orange
+        gray: '#808080',
+        black: '#000000',
+        white: '#ffffff'
+      }
+    }
   },
-  plugins: [],
+  plugins: []
 }
