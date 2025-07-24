@@ -2,6 +2,13 @@ import React from "react";
 import { motion } from "framer-motion";
 
 const Hero = () => {
+  const scrollToBooking = () => {
+    const section = document.getElementById("book");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section className="relative h-[90vh] flex items-center justify-center text-center text-white">
       {/* Background Image */}
@@ -27,12 +34,12 @@ const Hero = () => {
         <p className="text-lg md:text-xl mb-8">
           Fast, reliable, and affordable logistics at your fingertips. Book your move in minutes!
         </p>
-        <a
-          href="#book"
+        <button
+          onClick={scrollToBooking}
           className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 px-8 rounded-full text-lg transition duration-300"
         >
           Book Now
-        </a>
+        </button>
       </motion.div>
     </section>
   );
