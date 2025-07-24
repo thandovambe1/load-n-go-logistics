@@ -1,0 +1,291 @@
+[33m5717b36[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Update App.jsx
+[33m4e1727d[m Update Hero.jsx
+[33m6a410cc[m Update Hero.jsx
+[33mc0d791d[m Install react-icons
+[33m4344cde[m Update App.jsx
+[33m95fa17e[m Update App.jsx
+[33m4074f1b[m Added hero image
+[33m4a7ab96[m Added hero image
+[33m25f2a61[m Update App.jsx
+[33m85c4fee[m Add framer-motion for animations
+[33md725ce0[m Add framer-motion dependency
+[33m73c8bfc[m Added framer-motion dependency
+[33md77987d[m Create Contact.jsx
+[33m4eaa5a3[m Update App.jsx
+[33m87cf0f6[m Update App.jsx
+[33m141f34f[m Install polyline for route decoding
+[33m70a6789[m Update ContactSupport.jsx
+[33m825bde7[m Update Hero.jsx
+[33m9179dc2[m Update Hero.jsx
+[33m60009e6[m Create FAQ.jsx
+[33m467beb4[m Update TrackDriver.jsx
+[33m6efa69f[m Update LiveMap.jsx
+[33m5be698b[m Update LiveMap.jsx
+[33m7adeafd[m Update LiveMap.jsx
+[33mc1ab17f[m Update LiveMap.jsx
+[33mc1c9e30[m Update Navbar.jsx
+[33m808f72c[m Update App.jsx
+[33m3c5ee65[m Create TrackDriver.jsx
+[33md778005[m Create updateDriverLocation.js
+[33mcceec37[m Update LiveMap.jsx
+[33m9618b6b[m Create LiveMap.jsx
+[33mf44961b[m Added Google Maps API package
+[33mb497e2e[m Complete MVP with all features
+[33m39ce55b[m Update ContactSupport.jsx
+[33medbe117[m Update Home.jsx
+[33m8c08298[m Update Hero.jsx
+[33mf1f8f72[m Update Navbar.jsx
+[33m1641c08[m Update main.jsx
+[33mb0a20e7[m Rename Contact.jsx to ContactSupport.jsx
+[33m5e63008[m Update Contact.jsx
+[33mc2f5d8f[m Update PartnerRegister.jsx
+[33mff45892[m Create Services.jsx
+[33m227fa42[m Update App.jsx
+[33mcd078b5[m Update firebase.js
+[33mdb18f66[m Update App.jsx
+[33m90670db[m Update Hero.jsx
+[33mfc2d90d[m Update Navbar.jsx
+[33m812f927[m Update tailwind.config.js
+[33m24003e2[m Update firebase.js
+[33m59623ed[m Update firebase.js
+[33m88a2289[m Update firebase.js
+[33md8d865a[m Create Payment.jsx
+[33m6e62abd[m Update index.html
+[33m651104b[m Update firebase.js
+[33m7ca2162[m Update tailwind.config.js
+[33m44cb967[m Installed react-router-dom
+[33m776921d[m Added Vite React plugin and dependencies
+[33m66bd3f9[m Update vite.config.js
+[33ma9d7fa1[m Update package.json
+[33m5d594ba[m Update main.jsx
+[33m1cf95e3[m Update App.jsx
+[33m49dfd76[m Update PartnerRegister.jsx
+[33m8f381a8[m Update Login.jsx
+[33m47328d0[m Update Home.jsx
+[33m3492954[m Update Navbar.jsx
+[33mbc99d67[m Update AuthContext.jsx
+[33m8ed2152[m Update firebase.js
+[33m69eadd4[m Update vercel.json
+[33m98aad6f[m Update vite.config.js
+[33m37f5867[m Update firebase.js
+[33meb007fc[m Create vite.config.js
+[33m8589150[m Update firebase.js
+[33m0a57ba6[m Update AuthContext.jsx
+[33mc131f54[m Update App.jsx
+[33md9e8ef7[m Update PartnerRegister.jsx
+[33m8f5a669[m Update Login.jsx
+[33m9440ba0[m Update main.jsx
+[33m9a4a277[m Update AuthContext.jsx
+[33mc0d13ee[m Update firebase.js
+[33maec707f[m Update PartnerRegister.jsx
+[33me2183f4[m Update Navbar.jsx
+[33m9b2f509[m Update Navbar.jsx
+[33m57a029c[m Update App.jsx
+[33md107e31[m Update PartnerRegister.jsx
+[33m8880c56[m Update firebase.js
+[33mf84c8e9[m Create package.json
+[33mb4ab4e8[m Delete package.json
+[33mfa15013[m Update package.json
+[33m244314b[m Update package.json
+[33m4086a33[m Update package.json
+[33m3aade8e[m Update package.json
+[33ma5f22c2[m Update package.json
+[33m49cc35a[m Update PartnerRegister.jsx
+[33m225a3da[m Update App.jsx
+[33mfbadf34[m Create PartnerRegister.jsx
+[33m9d33c1d[m Update Hero.jsx
+[33md1e38a6[m Update Home.jsx
+[33mc35f475[m Create Hero.jsx
+[33m2218110[m Update Navbar.jsx
+[33m4c14a66[m Update index.css
+[33md7d7657[m Update Navbar.jsx
+[33m316fe70[m Update App.jsx
+[33m7971f43[m Update Navbar.jsx
+[33m73bc164[m Update package.json
+[33mbf24a02[m Update package.json
+[33mc0ecf40[m Update index.css
+[33m132fa07[m Update Navbar.jsx
+[33m18b7826[m Update package.json
+[33mff6313f[m Update index.css
+[33mc3a5008[m Update package.json
+[33m022e66f[m Update package.json
+[33m7d9a1c1[m Update package.json
+[33m346d9a0[m Update vercel.json
+[33m3e844d6[m Update App.jsx
+[33m5fc3932[m Update index.css
+[33md4b4d99[m Update index.css
+[33m00dc6be[m Update Navbar.jsx
+[33m614cd43[m Update package.json
+[33mc14941c[m Update MyBookings.jsx
+[33med6cef0[m Update Navbar.jsx
+[33m404bb75[m Update MyBookings.jsx
+[33md329e3c[m Update firebase.js
+[33m22c834f[m Update Profile.jsx
+[33mb8f8eed[m Update Login.jsx
+[33m3de96cc[m Update AuthContext.jsx
+[33m079c3f0[m Update AuthContext.jsx
+[33m22219b0[m Update firebase.js
+[33mcd96bc2[m Update MyBookings.jsx
+[33mb7a668b[m Update Home.jsx
+[33m5752c4d[m Update App.jsx
+[33mbb06537[m Update AuthContext.jsx
+[33mdadd823[m Create firebase.js
+[33m0a1d532[m Delete src/src directory
+[33m752b5e9[m Create firebase.js
+[33m34b127d[m Update package.json
+[33mecd224c[m Update WhatsAppButton.jsx
+[33m19a0498[m Update App.jsx
+[33mba87154[m Update Navbar.jsx
+[33m0e7fd19[m Add files via upload
+[33m0b98e71[m Update App.jsx
+[33m4581f76[m Create Footer.jsx
+[33m52a0f8e[m Create WhatsAppButton.jsx
+[33m6b5586a[m Update App.jsx
+[33m33edd4a[m Update Login.jsx
+[33m9d178d5[m Update Profile.jsx
+[33m39b279c[m Update MyBookings.jsx
+[33m701a600[m Update Home.jsx
+[33m3665ff6[m Update Navbar.jsx
+[33mb2c2298[m Update App.jsx
+[33m3990015[m Update MyBookings.jsx
+[33m085a844[m Update Profile.jsx
+[33m2d75af4[m Update Login.jsx
+[33m778246c[m Update Home.jsx
+[33m4bc017e[m Update Navbar.jsx
+[33m1a75fef[m Update index.css
+[33mb13e185[m Update postcss.config.js
+[33m94e30e8[m Update tailwind.config.js
+[33mf25f1fc[m Update index.html
+[33maca8981[m Update package.json
+[33me2087b1[m Update Home.jsx
+[33m3bf4d8c[m Update Home.jsx
+[33m103f443[m Update package.json
+[33mafd6f0c[m Update App.jsx
+[33m1c02d5a[m Update Home.jsx
+[33m221e912[m Update Navbar.jsx
+[33m49a9b72[m Delete src/assets/.gitkeep
+[33m1dbdc50[m Add files via upload
+[33m85a4cb1[m Create .gitkeep
+[33m02460e6[m Add files via upload
+[33mb38e109[m Add files via upload
+[33mbd622fe[m Delete src directory
+[33m6576190[m Delete vercel.json
+[33mfe583ac[m Delete tailwind.config.js
+[33m8be9376[m Delete postcss.config.js
+[33mef82b21[m Delete package.json
+[33me7c5dd5[m Delete index.html
+[33m0d57642[m Add files via upload
+[33m8bb7d17[m Delete src/assets/hero.jpg.jpeg
+[33mecf55c3[m Update Home.jsx
+[33m76f9317[m Update Home.jsx
+[33m1d54056[m Update Home.jsx
+[33ma43b224[m Update Navbar.jsx
+[33m04eaf49[m Delete src/assets/.gitkeep
+[33m4e80224[m Add files via upload
+[33md2fb76a[m Create .gitkeep
+[33m50a2d9f[m Delete src/assets
+[33m3ccf0da[m Create assets
+[33m3493b9b[m Add files via upload
+[33me5fee7a[m Delete vercel.json
+[33m4f7e27e[m Delete tailwind.config.js
+[33m1e6c061[m Delete postcss.config.js
+[33maba742f[m Delete package.json
+[33mc8ac1b2[m Delete package-lock.json
+[33m6ab9167[m Delete index.html
+[33ma744e1e[m Delete eslint.config.js
+[33maca991c[m Delete README.md
+[33m30a0db6[m Delete .gitignore
+[33m1500972[m Delete vite.config.js
+[33m71be298[m Delete src directory
+[33me7b8ca4[m Delete public directory
+[33me6e96f3[m Edits
+[33mb53923c[m Vercel addition
+[33m14485d4[m updates UI
+[33m754db97[m Updates
+[33m818c851[m Setup Tailwind CSS
+[33m8162fc8[m updates
+[33m517d44e[m update app.jsx
+[33mb293c1d[m updates
+[33m8e8db96[m update home
+[33m63b2540[m update navbar
+[33mf54a70d[m changes to package.json
+[33m2e9ea27[m updated package indez and my bookings
+[33m3da4fd4[m App.jsx update
+[33m19a56ab[m Updated home jsx
+[33me563436[m updated logo name
+[33mfebf039[m updated hero
+[33m49e75d8[m added hero
+[33mf490775[m Updated all these changes
+[33m75cad9e[m hero.jpg
+[33mb9636c6[m App.jsx update
+[33mcc8ed38[m main.jsx update
+[33m1408eb3[m Added Login.jsx
+[33m1ed32a9[m AuthContext file new
+[33mdc45f3a[m Firebase edit
+[33m0193b1a[m Fix package.json and add dependencies
+[33mca98426[m Update package.json
+[33m76135eb[m Added Firebase Auth (Google + Email/Password)
+[33ma11278e[m Update App.css
+[33mdb10094[m Update Profile.jsx
+[33m66cd230[m Update Contact.jsx
+[33md2d04ac[m Update MyBookings.jsx
+[33m7564ff7[m Update Home.jsx
+[33m8bc14a2[m Update WhatsAppButton.jsx
+[33mc8361ca[m Update Navbar.jsx
+[33m25b017b[m Update App.jsx
+[33md2a9471[m Update index.html
+[33m216b5a2[m Update vercel.json
+[33m68371e2[m Update vercel.json
+[33m77ce4c1[m Update vercel.json
+[33me686812[m Create vercel.json
+[33mbac29fa[m Update Profile.jsx
+[33m9a32918[m Update firebase.js
+[33mbbe7c6c[m Create Profile.jsx
+[33m0e0e2d0[m Create Contact.jsx
+[33m5eb8aa3[m Create MyBookings.jsx
+[33m22704c3[m Create Home.jsx
+[33m3440f20[m Update package.json
+[33m5650f1e[m Update Profile.jsx
+[33m0b25c0d[m Update Contact.jsx
+[33mb4592bd[m Update Mybookings.jsx
+[33mf5670fc[m Update Home.jsx
+[33m7479a67[m Create Profile.jsx
+[33m62a4e0d[m Create Contact.jsx
+[33m865d571[m Create Mybookings.jsx
+[33m353eb3f[m Delete src/pages
+[33m3faec2b[m Create Home.jsx
+[33m63d3f0e[m Create WhatsAppButton.jsx
+[33m1fa408c[m Update Navbar.jsx
+[33mbc9067b[m Create Navbar.jsx
+[33mfd92bff[m Delete src/src/components directory
+[33m8a5112d[m Create Navbar.jsx
+[33me516299[m Delete src/components
+[33m0c7e847[m Update App.jsx
+[33m1527e70[m Update index.html
+[33m8aa2c37[m Update index.html
+[33mdeada44[m Create index.html
+[33m248c1db[m Create pages
+[33md0af59b[m Create components
+[33m677cfef[m Update index.css
+[33ma3f176f[m Update main.jsx
+[33m9c5e073[m Update firebase.js
+[33mc79a3bd[m Add files via upload
+[33mbe6f72b[m Create firebase.js
+[33m6adb034[m Update App.jsx
+[33m275ae93[m Update App.css
+[33m0ed88af[m Update index.html
+[33m1deb17e[m Update App.jsx
+[33m0bd9272[m Add files via upload
+[33mb380ecb[m Add files via upload
+[33m8e609f5[m Update package.json
+[33m0ae529e[m Update App.css
+[33me6401ad[m Update App.jsx
+[33m53b4352[m Update App.css
+[33md1cebde[m Update App.jsx
+[33m5ac2791[m Update App.jsx
+[33m2048907[m Update App.css
+[33mf1257a0[m logo.png
+[33m7468ff9[m logo.png
+[33mdde6679[m Update App.jsx
+[33m2e9c312[m Update UI for Load-N-Go
+[33m6f61269[m Initial React app setup
