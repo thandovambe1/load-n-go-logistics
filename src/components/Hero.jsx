@@ -1,22 +1,40 @@
-import FAQ from "../components/FAQ";
-import React from "react";
-import heroImage from "../assets/hero.jpg"; // Make sure hero.jpg exists in src/assets
+import { motion } from "framer-motion";
 
-const Hero = () => {
+export default function Hero() {
   return (
-    <div>
-      <section className="text-center py-20 bg-gradient-to-r from-blue-500 to-orange-500 text-white">
-        <h1 className="text-5xl font-bold mb-4">Welcome to Load-N-Go</h1>
-        <p className="text-lg mb-6">Fast, reliable logistics solutions at your fingertips</p>
-        <a href="/services" className="bg-white text-blue-500 px-6 py-3 rounded-full font-bold hover:bg-gray-100">
-          Book Now
+    <section
+      className="relative w-full h-screen flex items-center justify-center bg-gray-900 text-white overflow-hidden"
+    >
+      {/* Background Image */}
+      <img
+        src="/assets/hero.jpg"
+        alt="Load-N-Go Hero"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+
+      {/* Content */}
+      <motion.div
+        className="relative z-10 text-center px-6"
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+      >
+        <h1 className="text-4xl md:text-6xl font-bold mb-4">
+          Move Anything, Anytime.
+        </h1>
+        <p className="text-lg md:text-2xl mb-6">
+          Fast, reliable, and affordable logistics solutions at your fingertips.
+        </p>
+        <a
+          href="#book"
+          className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-full text-lg shadow-lg transition"
+        >
+          Book a Load Now
         </a>
-      </section>
-
-      {/* ✅ Add FAQ Below */}
-      <FAQ />
-    </div>
+      </motion.div>
+    </section>
   );
-};
-
-export default Hero;
+}
