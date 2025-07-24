@@ -1,15 +1,9 @@
+import React from "react";
 import { motion } from "framer-motion";
 
-export default function Hero() {
-  const scrollToBooking = () => {
-    const section = document.getElementById("book");
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
+const Hero = () => {
   return (
-    <section className="relative w-full h-screen flex items-center justify-center bg-gray-900 text-white overflow-hidden">
+    <section className="relative h-[90vh] flex items-center justify-center text-center text-white">
       {/* Background Image */}
       <img
         src="/assets/hero.jpg"
@@ -18,30 +12,30 @@ export default function Hero() {
       />
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
       {/* Content */}
       <motion.div
-        className="relative z-10 text-center px-6 max-w-3xl"
+        className="relative z-10 px-6 max-w-3xl"
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, ease: "easeOut" }}
+        transition={{ duration: 1 }}
       >
-        <h1 className="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">
-          Move Anything, Anytime.
+        <h1 className="text-4xl md:text-6xl font-extrabold mb-6">
+          Move Anything, Anytime, Anywhere
         </h1>
-        <p className="text-lg md:text-2xl mb-8 text-gray-200">
-          Fast, reliable, and affordable logistics solutions at your fingertips.
+        <p className="text-lg md:text-xl mb-8">
+          Fast, reliable, and affordable logistics at your fingertips. Book your move in minutes!
         </p>
-        <motion.button
-          onClick={scrollToBooking}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded-full text-lg shadow-lg transition"
+        <a
+          href="#book"
+          className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 px-8 rounded-full text-lg transition duration-300"
         >
-          Book a Load Now
-        </motion.button>
+          Book Now
+        </a>
       </motion.div>
     </section>
   );
-}
+};
+
+export default Hero;
