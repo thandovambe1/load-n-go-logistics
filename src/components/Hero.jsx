@@ -18,8 +18,8 @@ const Hero = () => {
         className="absolute inset-0 w-full h-full object-cover"
       />
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-orange-700 opacity-70"></div>
 
       {/* Content */}
       <motion.div
@@ -31,12 +31,12 @@ const Hero = () => {
         <h1 className="text-4xl md:text-6xl font-extrabold mb-6">
           Move Anything, Anytime, Anywhere
         </h1>
-        <p className="text-lg md:text-xl mb-8">
-          Fast, reliable, and affordable logistics at your fingertips. Book your move in minutes!
+        <p className="text-lg md:text-xl mb-8 text-gray-200">
+          Fast, reliable, and affordable logistics at your fingertips.
         </p>
         <button
           onClick={scrollToBooking}
-          className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 px-8 rounded-full text-lg transition duration-300"
+          className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 px-8 rounded-full text-lg shadow-lg hover:shadow-xl transition duration-300"
         >
           Book Now
         </button>
