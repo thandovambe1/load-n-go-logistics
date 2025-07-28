@@ -1,18 +1,30 @@
+// src/App.jsx
 import React from "react";
-import Hero from "./components/Hero";
-import Services from "./components/Services";
-import MyBookings from "./pages/MyBookings";
-import ContactSupport from "./pages/ContactSupport";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-<Route path="/contact-support" element={<ContactSupport />} />
+// Importing page components
+import Home from "./pages/Home";
+import MyBookings from "./pages/MyBookings";
+
+// Importing reusable components
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function App() {
   return (
-    <div>
-      <Hero />
-      <Services />
-      <MyBookings />
-    </div>
+    <Router>
+      <div className="flex flex-col min-h-screen">
+        <Navbar />
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/bookings" element={<MyBookings />} />
+            {/* You can add more routes here like Contact, About, etc. */}
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
