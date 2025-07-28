@@ -60,25 +60,27 @@ export default function Home() {
   };
 
   return (
-    <div className="font-sans bg-gray-50 min-h-screen">
-      {/* Header */}
-      <header className="flex justify-between items-center px-6 py-4 shadow bg-white sticky top-0 z-10">
-        <h1 className="text-2xl font-bold text-orange-500">Load-N-Go</h1>
-        <div className="flex gap-4">
-          <a
-            href="/dashboard"
-            className="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg shadow hover:bg-gray-300 transition"
-          >
-            Dashboard
-          </a>
-          <a
-            href="/book"
-            className="bg-orange-500 text-white px-4 py-2 rounded-lg shadow hover:bg-orange-600 transition"
-          >
-            Book Now
-          </a>
-        </div>
-      </header>
+   import { Link } from 'react-router-dom';
+
+// ...inside your component's return JSX:
+
+<header className="flex justify-between items-center px-6 py-4 shadow bg-white sticky top-0 z-10">
+  <h1 className="text-2xl font-bold text-orange-500">Load-N-Go</h1>
+  <div className="space-x-4">
+    <Link
+      to="/dashboard"
+      className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600"
+    >
+      Dashboard
+    </Link>
+    <Link
+      to="/book"
+      className="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-900"
+    >
+      Book Now
+    </Link>
+  </div>
+</header>
 
       {/* Hero Section */}
       <section className="px-6 py-12 text-center bg-orange-50">
