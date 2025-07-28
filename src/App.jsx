@@ -1,7 +1,7 @@
 import React from "react";
 import Hero from "./components/Hero";
 import Services from "./components/Services";
-import MyBookings from "./components/MyBookings";
+import MyBookings from "./pages/MyBookings";
 
 function App() {
   return (
