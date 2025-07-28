@@ -1,3 +1,21 @@
+<header className="flex justify-between items-center px-6 py-4 shadow bg-white sticky top-0 z-10">
+  <h1 className="text-2xl font-bold text-orange-500">Load-N-Go</h1>
+  <div className="flex gap-4">
+    <a
+      href="/dashboard"
+      className="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg shadow hover:bg-gray-300 transition"
+    >
+      Dashboard
+    </a>
+    <a
+      href="/book"
+      className="bg-orange-500 text-white px-4 py-2 rounded-lg shadow hover:bg-orange-600 transition"
+    >
+      Book Now
+    </a>
+  </div>
+</header>
+
 import emailjs from '@emailjs/browser';
 import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
