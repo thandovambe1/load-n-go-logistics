@@ -1,31 +1,18 @@
-// src/App.jsx
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-// Importing page components
-import Home from "./pages/Home";
-import MyBookings from "./pages/MyBookings";
-
-// Importing reusable components
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Contact from './pages/Contact';
+import MyBookings from './pages/MyBookings';
+import Dashboard from './pages/Dashboard';
 
 function App() {
-  return (
-    <Router>
-      <div className="flex flex-col min-h-screen">
-        <Navbar />
-        <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/bookings" element={<MyBookings />} />
-            {/* You can add more routes here like Contact, About, etc. */}
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </Router>
-  );
+return (
+<Router>
+<Routes>
+<Route path="/" element={<Home />} />
+<Route path="/contact" element={<Contact />} />
+<Route path="/bookings" element={<MyBookings />} />
+<Route path="/dashboard" element={<Dashboard />} />
+</Routes>
+</Router>
+);
 }
-
-export default App;
