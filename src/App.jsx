@@ -1,18 +1,18 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import Contact from './pages/Contact';
-import MyBookings from './pages/MyBookings';
+import Booking from './pages/Booking';
 import Dashboard from './pages/Dashboard';
+// other imports...
 
-function App() {
-return (
-<Router>
-<Routes>
-<Route path="/" element={<Home />} />
-<Route path="/contact" element={<Contact />} />
-<Route path="/bookings" element={<MyBookings />} />
-<Route path="/dashboard" element={<Dashboard />} />
-</Routes>
-</Router>
-);
+export default function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/book" element={<Booking />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        {/* Add other routes here */}
+      </Routes>
+    </Router>
+  );
 }
