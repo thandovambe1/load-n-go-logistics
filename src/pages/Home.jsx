@@ -32,23 +32,23 @@ const services = [
 
 export default function Home() {
   const form = useRef();
-const [success, setSuccess] = useState(false);
-const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-const sendEmail = (e) => {
-  e.preventDefault();
-  setLoading(true);
+  const sendEmail = (e) => {
+    e.preventDefault();
+    setLoading(true);
 
-  emailjs.sendForm('service_gdzxaeo', 'template_hk9853t', form.current, 'GaBDQxhP0ASdqxt-I')
-    .then((result) => {
+    emailjs.sendForm('service_gdzxaeo', 'template_hk9853t', form.current, 'GaBDQxhP0ASdqxt-I')
+      .then((result) => {
         setSuccess(true);
         setLoading(false);
         form.current.reset();
-    }, (error) => {
+      }, (error) => {
         alert("Message failed: " + error.text);
         setLoading(false);
-    });
-};
+      });
+  };
 
   return (
     <div className="font-sans bg-gray-50">
@@ -73,6 +73,18 @@ const sendEmail = (e) => {
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i
-                );
-};  
+              transition={{ duration: 0.5, delay: i * 0.2 }}
+              className="bg-white rounded-xl shadow p-4 flex items-start space-x-4"
+            >
+              <div className="text-3xl">{service.icon}</div>
+              <div>
+                <h3 className="text-lg font-semibold">{service.title}</h3>
+                <p className="text-gray-500">{service.description}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
