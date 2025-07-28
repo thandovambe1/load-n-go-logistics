@@ -1,4 +1,6 @@
-import { motion } from "framer-motion";
+import emailjs from '@emailjs/browser';
+import { useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 
 const services = [
   {
@@ -29,6 +31,25 @@ const services = [
 ];
 
 export default function Home() {
+  const form = useRef();
+const [success, setSuccess] = useState(false);
+const [loading, setLoading] = useState(false);
+
+const sendEmail = (e) => {
+  e.preventDefault();
+  setLoading(true);
+
+  emailjs.sendForm('service_gdzxaeo', 'template_hk9853t', form.current, 'GaBDQxhP0ASdqxt-I')
+    .then((result) => {
+        setSuccess(true);
+        setLoading(false);
+        form.current.reset();
+    }, (error) => {
+        alert("Message failed: " + error.text);
+        setLoading(false);
+    });
+};
+
   return (
     <div className="font-sans bg-gray-50">
       {/* Header */}
