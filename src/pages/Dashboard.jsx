@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { collection, query, where, onSnapshot, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
-import { Button } from '@/components/ui/button';
 
 export default function Dashboard() {
   const [user, setUser] = useState(null);
@@ -80,19 +79,19 @@ export default function Dashboard() {
               </div>
               <div className="flex gap-2">
                 {delivery.status !== 'Cancelled' && (
-                  <Button
-                    variant="destructive"
+                  <button
+                    className="bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700 transition"
                     onClick={() => handleCancel(delivery.id)}
                   >
                     Cancel
-                  </Button>
+                  </button>
                 )}
-                <Button
-                  variant="secondary"
+                <button
+                  className="bg-gray-200 text-gray-800 px-4 py-1 rounded hover:bg-gray-300 transition"
                   onClick={() => handleDelete(delivery.id)}
                 >
                   Delete
-                </Button>
+                </button>
               </div>
             </div>
           ))}
