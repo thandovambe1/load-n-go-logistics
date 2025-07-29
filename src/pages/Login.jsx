@@ -1,44 +1,53 @@
-import React, { useState } from "react";
+// src/pages/Login.jsx
+import { useState } from "react";
 import { auth } from "../firebase";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      alert("Logged in successfully!");
-    } catch (error) {
-      alert(error.message);
+      navigate("/dashboard");
+    } catch (err) {
+      alert(err.message);
     }
-  };
-
-  const handleRegister = async () => {
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      alert("Account created successfully!");
-    } catch (error) {
-      alert(error.message);
-    }
-  };
-
-  const handleGoogle = async () => {
-    const provider = new GoogleAuthProvider();
-    await signInWithPopup(auth, provider);
   };
 
   return (
-    <div className="p-6 text-center">
-      <h2 className="text-2xl mb-4">Login or Register</h2>
-      <input type="email" placeholder="Email" className="border p-2 w-full mb-3" onChange={(e) => setEmail(e.target.value)} />
-      <input type="password" placeholder="Password" className="border p-2 w-full mb-3" onChange={(e) => setPassword(e.target.value)} />
-      <button className="bg-blue-500 text-white p-2 rounded mr-2" onClick={handleLogin}>Login</button>
-      <button className="bg-green-500 text-white p-2 rounded mr-2" onClick={handleRegister}>Register</button>
-      <button className="bg-red-500 text-white p-2 rounded" onClick={handleGoogle}>Google Sign-In</button>
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <form
+        onSubmit={handleLogin}
+        className="bg-white p-6 rounded shadow-md w-full max-w-sm"
+      >
+        <h2 className="text-xl font-bold mb-4">Login</h2>
+        <input
+          className="w-full p-2 border mb-4"
+          placeholder="Email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          className="w-full p-2 border mb-4"
+          placeholder="Password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button
+          type="submit"
+          className="w-full bg-orange-500 text-white p-2 rounded"
+        >
+          Login
+        </button>
+      </form>
     </div>
   );
-};
+}
 
-export default Login;
