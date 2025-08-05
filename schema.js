@@ -74,7 +74,7 @@ export const vehicles = pgTable("vehicles", {
 export const driverDocuments = pgTable("driver_documents", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   driverId: varchar("driver_id").notNull().references(() => users.id),
-  documentType: varchar("document_type").notNull(), // 'license', 'prdp', 'insurance', 'registration'
+  documentType: varchar("document_type").notNull(),
   documentNumber: varchar("document_number"),
   expiryDate: timestamp("expiry_date"),
   fileUrl: varchar("file_url"),
@@ -231,17 +231,3 @@ export const insertDriverRatingSchema = createInsertSchema(driverRatings).omit({
   id: true,
   createdAt: true,
 });
-
-// Types
-export type UpsertUser = z.infer<typeof insertUserSchema>;
-export type User = typeof users.$inferSelect;
-export type InsertVehicle = z.infer<typeof insertVehicleSchema>;
-export type Vehicle = typeof vehicles.$inferSelect;
-export type InsertDriverDocument = z.infer<typeof insertDriverDocumentSchema>;
-export type DriverDocument = typeof driverDocuments.$inferSelect;
-export type InsertBankAccount = z.infer<typeof insertBankAccountSchema>;
-export type BankAccount = typeof bankAccounts.$inferSelect;
-export type InsertDeliveryRequest = z.infer<typeof insertDeliveryRequestSchema>;
-export type DeliveryRequest = typeof deliveryRequests.$inferSelect;
-export type InsertDriverRating = z.infer<typeof insertDriverRatingSchema>;
-export type DriverRating = typeof driverRatings.$inferSelect;
