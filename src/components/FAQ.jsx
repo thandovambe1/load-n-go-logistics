@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 
 const faqs = [
   {
@@ -17,14 +17,14 @@ const faqs = [
     question: "How can I pay?",
     answer: "You can pay using Yoco (card payments) and other secure methods we offer.",
   },
-];
+]
 
 const FAQ = () => {
-  const [openIndex, setOpenIndex] = useState(null);
+  const [openIndex, setOpenIndex] = useState(null)
 
   const toggleFAQ = (index) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
+    setOpenIndex(openIndex === index ? null : index)
+  }
 
   return (
     <section className="py-12 bg-gray-100">
@@ -49,7 +49,7 @@ const FAQ = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default FAQ;
+export default FAQ

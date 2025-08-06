@@ -1,10 +1,10 @@
 // src/components/Services.jsx
-import { motion } from "framer-motion";
+import { motion } from "framer-motion"
 
 const services = [
   { title: "Furniture Removals", description: "Safe and reliable", icon: "🏠" },
   { title: "Appliance Delivery", description: "Heavy appliances handled", icon: "📦" },
-];
+]
 
 export default function Services() {
   return (
@@ -29,5 +29,5 @@ export default function Services() {
         ))}
       </div>
     </section>
-  );
+  )
 }

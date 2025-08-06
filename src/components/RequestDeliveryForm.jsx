@@ -1,51 +1,51 @@
-import { useState } from "react";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { db, auth } from "../firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useState } from "react"
+import { addDoc, collection, serverTimestamp } from "firebase/firestore"
+import { db, auth } from "../firebase"
+import { useAuthState } from "react-firebase-hooks/auth"
 
 export default function RequestDeliveryForm() {
-const [user] = useAuthState(auth);
+const [user] = useAuthState(auth)
 const [formData, setFormData] = useState({
 pickupAddress: "",
 dropoffAddress: "",
 scheduledDate: "",
 scheduledTime: "",
 price: "",
-});
-const [loading, setLoading] = useState(false);
-const [successMsg, setSuccessMsg] = useState("");
+})
+const [loading, setLoading] = useState(false)
+const [successMsg, setSuccessMsg] = useState("")
 
 const handleChange = (e) => {
-setFormData({ ...formData, [e.target.name]: e.target.value });
-};
+setFormData({ ...formData, [e.target.name]: e.target.value })
+}
 
 const handleSubmit = async (e) => {
-e.preventDefault();
-if (!user) return alert("You must be logged in.");
+e.preventDefault()
+if (!user) return alert("You must be logged in.")
 
 try {
-  setLoading(true);
+  setLoading(true)
   await addDoc(collection(db, "delivery_requests"), {
     ...formData,
     userId: user.uid,
     status: "pending",
     createdAt: serverTimestamp(),
-  });
+  })
   setFormData({
     pickupAddress: "",
     dropoffAddress: "",
     scheduledDate: "",
     scheduledTime: "",
     price: "",
-  });
-  setSuccessMsg("Request submitted!");
+  })
+  setSuccessMsg("Request submitted!")
 } catch (err) {
-  console.error(err);
-  alert("Failed to submit request.");
+  console.error(err)
+  alert("Failed to submit request.")
 } finally {
-  setLoading(false);
+  setLoading(false)
 }
-};
+}
 
 return (
 <form onSubmit={handleSubmit} className="p-4 space-y-4 bg-white rounded-xl shadow">
@@ -60,5 +60,5 @@ return (
 </button>
 {successMsg && <p className="text-green-600">{successMsg}</p>}
 </form>
-);
+)
 }

@@ -1,34 +1,34 @@
-import React, { useState } from "react";
-import { db, storage } from "../firebase";
-import { collection, addDoc } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import React, { useState } from "react"
+import { db, storage } from "../firebase"
+import { collection, addDoc } from "firebase/firestore"
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
 
 const PartnerRegister = () => {
-  const [name, setName] = useState("");
-  const [vehicleType, setVehicleType] = useState("");
-  const [file, setFile] = useState(null);
+  const [name, setName] = useState("")
+  const [vehicleType, setVehicleType] = useState("")
+  const [file, setFile] = useState(null)
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    let fileURL = "";
+    e.preventDefault()
+    let fileURL = ""
 
     if (file) {
-      const storageRef = ref(storage, `partners/${file.name}`);
-      await uploadBytes(storageRef, file);
-      fileURL = await getDownloadURL(storageRef);
+      const storageRef = ref(storage, `partners/${file.name}`)
+      await uploadBytes(storageRef, file)
+      fileURL = await getDownloadURL(storageRef)
     }
 
     await addDoc(collection(db, "partners"), {
       name,
       vehicleType,
       fileURL
-    });
+    })
 
-    alert("Partner registered successfully!");
-    setName("");
-    setVehicleType("");
-    setFile(null);
-  };
+    alert("Partner registered successfully!")
+    setName("")
+    setVehicleType("")
+    setFile(null)
+  }
 
   return (
     <div className="p-8">
@@ -60,7 +60,7 @@ const PartnerRegister = () => {
         </button>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default PartnerRegister;
+export default PartnerRegister

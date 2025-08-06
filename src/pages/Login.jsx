@@ -1,23 +1,23 @@
 // src/pages/Login.jsx
-import { useState } from "react";
-import { auth } from "../firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react"
+import { auth } from "../firebase"
+import { signInWithEmailAndPassword } from "firebase/auth"
+import { useNavigate } from "react-router-dom"
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const navigate = useNavigate()
 
   const handleLogin = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate("/dashboard");
+      await signInWithEmailAndPassword(auth, email, password)
+      navigate("/dashboard")
     } catch (err) {
-      alert(err.message);
+      alert(err.message)
     }
-  };
+  }
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
@@ -48,6 +48,6 @@ export default function Login() {
         </button>
       </form>
     </div>
-  );
+  )
 }
 

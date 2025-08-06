@@ -1,28 +1,28 @@
-import React, { useRef, useState } from "react";
-import emailjs from "@emailjs/browser";
+import React, { useRef, useState } from "react"
+import emailjs from "@emailjs/browser"
 
 const ContactSupport = () => {
-  const form = useRef();
-  const [sent, setSent] = useState(false);
-  const [error, setError] = useState(false);
+  const form = useRef()
+  const [sent, setSent] = useState(false)
+  const [error, setError] = useState(false)
 
   const sendEmail = (e) => {
-    e.preventDefault();
-    setSent(false);
-    setError(false);
+    e.preventDefault()
+    setSent(false)
+    setError(false)
 
     emailjs
       .sendForm("service_gdzxaeo", "template_hk9853t", form.current, "GaBDQxhP0ASdqxt-I")
       .then(
         () => {
-          setSent(true);
-          form.current.reset();
+          setSent(true)
+          form.current.reset()
         },
         () => {
-          setError(true);
+          setError(true)
         }
-      );
-  };
+      )
+  }
 
   return (
     <div className="max-w-xl mx-auto p-4 shadow-xl rounded-2xl bg-white">
@@ -39,7 +39,7 @@ const ContactSupport = () => {
         {error && <p className="text-red-600 text-center">Something went wrong. Please try again.</p>}
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default ContactSupport;
+export default ContactSupport

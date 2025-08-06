@@ -1,21 +1,21 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { FaTruckMoving, FaCouch, FaMotorcycle, FaCar } from "react-icons/fa";
+import React from "react"
+import { motion } from "framer-motion"
+import { FaTruckMoving, FaCouch, FaMotorcycle, FaCar } from "react-icons/fa"
 
 const services = [
   { icon: <FaTruckMoving size={40} />, title: "Furniture Delivery", desc: "Fast and safe home/office furniture delivery." },
   { icon: <FaCouch size={40} />, title: "Home & Office Moves", desc: "We make moving stress-free and quick." },
   { icon: <FaMotorcycle size={40} />, title: "Motorcycle Transport", desc: "Secure transport for your bikes." },
   { icon: <FaCar size={40} />, title: "Car Transport", desc: "Safe and reliable vehicle transport." },
-];
+]
 
 const Services = () => {
   const scrollToBooking = () => {
-    const section = document.getElementById("book");
+    const section = document.getElementById("book")
     if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
+      section.scrollIntoView({ behavior: "smooth" })
     }
-  };
+  }
 
   return (
     <section className="py-16 bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
@@ -41,7 +41,7 @@ const Services = () => {
         ))}
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default Services;
+export default Services

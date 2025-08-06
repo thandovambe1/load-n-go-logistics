@@ -1,22 +1,22 @@
-import { useState } from "react";
-import emailjs from "@emailjs/browser";
+import { useState } from "react"
+import emailjs from "@emailjs/browser"
 
 export default function MyBookings() {
   const [formData, setFormData] = useState({
     pickup_location: "",
     destination: "",
     pickup_time: "",
-  });
+  })
 
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
-    }));
-  };
+    }))
+  }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     emailjs
       .send(
@@ -27,18 +27,18 @@ export default function MyBookings() {
       )
       .then(
         () => {
-          alert("Booking request sent successfully!");
+          alert("Booking request sent successfully!")
           setFormData({
             pickup_location: "",
             destination: "",
             pickup_time: "",
-          });
+          })
         },
         (error) => {
-          alert("Error sending booking: " + error.text);
+          alert("Error sending booking: " + error.text)
         }
-      );
-  };
+      )
+  }
 
   return (
     <div className="p-4 max-w-xl mx-auto">
@@ -76,5 +76,5 @@ export default function MyBookings() {
         </button>
       </form>
     </div>
-  );
+  )
 }

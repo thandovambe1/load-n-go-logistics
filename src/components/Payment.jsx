@@ -1,10 +1,10 @@
-import React from "react";
+import React from "react"
 
 const Payment = () => {
   const pay = () => {
     const yoco = new window.YocoSDK({
       publicKey: "pk_test_your_yoco_key"
-    });
+    })
 
     yoco.showPopup({
       amountInCents: 5000, // Example R50
@@ -13,13 +13,13 @@ const Payment = () => {
       description: "Booking Payment",
       callback: (result) => {
         if (result.error) {
-          alert("Payment failed: " + result.error.message);
+          alert("Payment failed: " + result.error.message)
         } else {
-          alert("Payment successful!");
+          alert("Payment successful!")
         }
       }
-    });
-  };
+    })
+  }
 
   return (
     <button
@@ -28,7 +28,7 @@ const Payment = () => {
     >
       Pay Now
     </button>
-  );
-};
+  )
+}
 
-export default Payment;
+export default Payment

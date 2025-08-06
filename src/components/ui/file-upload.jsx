@@ -1,17 +1,12 @@
-import { useState, useRef } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { CloudUpload, File, X, CheckCircle } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { useState, useRef } from "react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { CloudUpload, File, X, CheckCircle } from "lucide-react"
+import { cn } from "@/lib/utils"
 
-interface FileUploadProps {
-  onFileSelect: (file: File) => void;
-  accept?: string;
-  maxSize?: number; // in bytes
-  className?: string;
-  disabled?: boolean;
-  'data-testid'?: string;
-}
+  onFileSelect: (file) => void
+  accept?maxSize?; // in bytes
+  className?disabled?'data-testid'?}
 
 export default function FileUpload({ 
   onFileSelect, 
@@ -19,105 +14,104 @@ export default function FileUpload({
   maxSize = 5 * 1024 * 1024, // 5MB default
   className,
   disabled = false,
-  'data-testid': testId
-}: FileUploadProps) {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [dragActive, setDragActive] = useState(false);
-  const [error, setError] = useState<string>("");
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  'data-testid'}) {
+  const [selectedFile, setSelectedFile] = useState<File | null>(null)
+  const [dragActive, setDragActive] = useState(false)
+  const [error, setError] = useState<string>("")
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const validateFile = (file: File): string | null => {
+  const validateFile = (file)| null => {
     if (maxSize && file.size > maxSize) {
-      return `File size must be less than ${(maxSize / (1024 * 1024)).toFixed(1)}MB`;
+      return `File size must be less than ${(maxSize / (1024 * 1024)).toFixed(1)}MB`
     }
     
     if (accept !== "*") {
-      const acceptedTypes = accept.split(',').map(type => type.trim());
-      const fileType = file.type;
-      const fileExtension = '.' + file.name.split('.').pop()?.toLowerCase();
+      const acceptedTypes = accept.split(',').map(type => type.trim())
+      const fileType = file.type
+      const fileExtension = '.' + file.name.split('.').pop()?.toLowerCase()
       
       const isValidType = acceptedTypes.some(type => {
         if (type.startsWith('.')) {
-          return type === fileExtension;
+          return type === fileExtension
         }
         if (type.includes('/*')) {
-          return fileType.startsWith(type.split('/*')[0]);
+          return fileType.startsWith(type.split('/*')[0])
         }
-        return type === fileType;
-      });
+        return type === fileType
+      })
       
       if (!isValidType) {
-        return `File type not supported. Accepted types: ${accept}`;
+        return `File type not supported. Accepted types: ${accept}`
       }
     }
     
-    return null;
-  };
+    return null
+  }
 
-  const handleFile = (file: File) => {
-    setError("");
-    const validationError = validateFile(file);
+  const handleFile = (file) => {
+    setError("")
+    const validationError = validateFile(file)
     
     if (validationError) {
-      setError(validationError);
-      return;
+      setError(validationError)
+      return
     }
     
-    setSelectedFile(file);
-    onFileSelect(file);
-  };
+    setSelectedFile(file)
+    onFileSelect(file)
+  }
 
-  const handleDrag = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleDrag = (e.DragEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
     if (e.type === "dragenter" || e.type === "dragover") {
-      setDragActive(true);
+      setDragActive(true)
     } else if (e.type === "dragleave") {
-      setDragActive(false);
+      setDragActive(false)
     }
-  };
+  }
 
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setDragActive(false);
+  const handleDrop = (e.DragEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setDragActive(false)
     
-    if (disabled) return;
+    if (disabled) return
     
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      handleFile(e.dataTransfer.files[0]);
+      handleFile(e.dataTransfer.files[0])
     }
-  };
+  }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    if (disabled) return;
+  const handleChange = (e.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
+    if (disabled) return
     
     if (e.target.files && e.target.files[0]) {
-      handleFile(e.target.files[0]);
+      handleFile(e.target.files[0])
     }
-  };
+  }
 
   const handleClick = () => {
-    if (disabled) return;
-    fileInputRef.current?.click();
-  };
+    if (disabled) return
+    fileInputRef.current?.click()
+  }
 
   const removeFile = () => {
-    setSelectedFile(null);
-    setError("");
+    setSelectedFile(null)
+    setError("")
     if (fileInputRef.current) {
-      fileInputRef.current.value = "";
+      fileInputRef.current.value = ""
     }
-  };
+  }
 
-  const formatFileSize = (bytes: number) => {
-    if (bytes === 0) return '0 Bytes';
-    const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
-  };
+  const formatFileSize = (bytes) => {
+    if (bytes === 0) return '0 Bytes'
+    const k = 1024
+    const sizes = ['Bytes', 'KB', 'MB', 'GB']
+    const i = Math.floor(Math.log(bytes) / Math.log(k))
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i]
+  }
 
   return (
     <div className={cn("w-full", className)} data-testid={testId}>
@@ -150,7 +144,7 @@ export default function FileUpload({
                 variant="ghost"
                 size="sm"
                 onClick={removeFile}
-                className="text-green-700 hover:text-green-900"
+                className="text-green-700 hover-green-900"
                 data-testid={`${testId}-remove`}
               >
                 <X className="h-4 w-4" />
@@ -189,11 +183,11 @@ export default function FileUpload({
               "text-xs",
               error ? "text-red-500" : "text-gray-500"
             )}>
-              {error || `Accepted formats: ${accept === "*" ? "All files" : accept} • Max size: ${(maxSize / (1024 * 1024)).toFixed(1)}MB`}
+              {error || `Accepted formats: ${accept === "*" ? "All files" } • Max size: ${(maxSize / (1024 * 1024)).toFixed(1)}MB`}
             </p>
           </CardContent>
         </Card>
       )}
     </div>
-  );
+  )
 }

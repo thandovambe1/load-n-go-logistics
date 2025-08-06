@@ -1,11 +1,11 @@
-import React from "react";
-import { useAuth } from "../context/AuthContext";
+import React from "react"
+import { useAuth } from "../context/AuthContext"
 
 const Profile = () => {
-  const { user, logout } = useAuth();
+  const { user, logout } = useAuth()
 
   if (!user) {
-    return <p className="p-8 text-center">Please log in first.</p>;
+    return <p className="p-8 text-center">Please log in first.</p>
   }
 
   return (
@@ -25,7 +25,7 @@ const Profile = () => {
         Logout
       </button>
     </div>
-  );
-};
+  )
+}
 
-export default Profile;
+export default Profile

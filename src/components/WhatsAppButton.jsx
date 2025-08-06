@@ -1,15 +1,15 @@
-import React from "react";
+import React from "react"
 
 const WhatsAppButton = () => {
-  const phoneNumber = "27810554566";
-  const message = "Hello, I need assistance with Load-N-Go Logistics.";
+  const phoneNumber = "27810554566"
+  const message = "Hello, I need assistance with Load-N-Go Logistics."
 
   const handleClick = () => {
     window.open(
       `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`,
       "_blank"
-    );
-  };
+    )
+  }
 
   return (
     <div
@@ -32,7 +32,7 @@ const WhatsAppButton = () => {
         style={{ width: "40px", height: "40px" }}
       />
     </div>
-  );
-};
+  )
+}
 
-export default WhatsAppButton;
+export default WhatsAppButton

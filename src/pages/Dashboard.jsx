@@ -1,47 +1,47 @@
-import { useEffect, useState } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
-import { collection, query, where, onSnapshot, doc, updateDoc, deleteDoc } from 'firebase/firestore';
-import { auth, db } from '../firebase';
+import { useEffect, useState } from 'react'
+import { onAuthStateChanged } from 'firebase/auth'
+import { collection, query, where, onSnapshot, doc, updateDoc, deleteDoc } from 'firebase/firestore'
+import { auth, db } from '../firebase'
 
 export default function Dashboard() {
-  const [user, setUser] = useState(null);
-  const [deliveries, setDeliveries] = useState([]);
-  const [filter, setFilter] = useState('all');
+  const [user, setUser] = useState(null)
+  const [deliveries, setDeliveries] = useState([])
+  const [filter, setFilter] = useState('all')
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-      setUser(firebaseUser);
-    });
+      setUser(firebaseUser)
+    })
 
-    return () => unsubscribe();
-  }, []);
+    return () => unsubscribe()
+  }, [])
 
   useEffect(() => {
-    if (!user) return;
+    if (!user) return
 
-    const q = query(collection(db, 'deliveries'), where('userId', '==', user.uid));
+    const q = query(collection(db, 'deliveries'), where('userId', '==', user.uid))
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      const results = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setDeliveries(results);
-    });
+      const results = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+      setDeliveries(results)
+    })
 
-    return () => unsubscribe();
-  }, [user]);
+    return () => unsubscribe()
+  }, [user])
 
   const handleCancel = async (id) => {
     await updateDoc(doc(db, 'deliveries', id), {
       status: 'Cancelled',
-    });
-  };
+    })
+  }
 
   const handleDelete = async (id) => {
-    await deleteDoc(doc(db, 'deliveries', id));
-  };
+    await deleteDoc(doc(db, 'deliveries', id))
+  }
 
   const filteredDeliveries = deliveries.filter((d) => {
-    if (filter === 'all') return true;
-    return d.status === filter;
-  });
+    if (filter === 'all') return true
+    return d.status === filter
+  })
 
   return (
     <div className="p-6 max-w-5xl mx-auto">
@@ -98,5 +98,5 @@ export default function Dashboard() {
         </div>
       )}
     </div>
-  );
+  )
 }

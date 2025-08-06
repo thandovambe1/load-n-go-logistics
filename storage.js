@@ -5,65 +5,18 @@ import {
   bankAccounts,
   deliveryRequests,
   driverRatings,
-  type User,
-  type UpsertUser,
-  type InsertVehicle,
-  type Vehicle,
-  type InsertDriverDocument,
-  type DriverDocument,
-  type InsertBankAccount,
-  type BankAccount,
-  type InsertDeliveryRequest,
-  type DeliveryRequest,
-  type InsertDriverRating,
-  type DriverRating,
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, and, desc, sql } from "drizzle-orm";
 
-export interface IStorage {
-  // User operations (required for Replit Auth)
-  getUser(id: string): Promise<User | undefined>;
-  upsertUser(user: UpsertUser): Promise<User>;
-  
-  // Vehicle operations
-  createVehicle(vehicle: InsertVehicle): Promise<Vehicle>;
-  getVehiclesByDriverId(driverId: string): Promise<Vehicle[]>;
-  updateVehicle(id: string, updates: Partial<InsertVehicle>): Promise<Vehicle>;
-  deleteVehicle(id: string): Promise<void>;
-  
-  // Driver document operations
-  createDriverDocument(document: InsertDriverDocument): Promise<DriverDocument>;
-  getDriverDocuments(driverId: string): Promise<DriverDocument[]>;
-  updateDriverDocument(id: string, updates: Partial<InsertDriverDocument>): Promise<DriverDocument>;
-  
-  // Bank account operations
-  createBankAccount(account: InsertBankAccount): Promise<BankAccount>;
-  getBankAccountsByUserId(userId: string): Promise<BankAccount[]>;
-  updateBankAccount(id: string, updates: Partial<InsertBankAccount>): Promise<BankAccount>;
-  
-  // Delivery request operations
-  createDeliveryRequest(request: InsertDeliveryRequest): Promise<DeliveryRequest>;
-  getDeliveryRequestsByCustomerId(customerId: string): Promise<DeliveryRequest[]>;
-  getDeliveryRequestsByDriverId(driverId: string): Promise<DeliveryRequest[]>;
-  getAvailableDeliveryRequests(): Promise<DeliveryRequest[]>;
-  updateDeliveryRequest(id: string, updates: Partial<InsertDeliveryRequest>): Promise<DeliveryRequest>;
-  getDeliveryRequest(id: string): Promise<DeliveryRequest | undefined>;
-  
-  // Driver rating operations
-  createDriverRating(rating: InsertDriverRating): Promise<DriverRating>;
-  getDriverRatings(driverId: string): Promise<DriverRating[]>;
-  getDriverAverageRating(driverId: string): Promise<number>;
-}
-
-export class DatabaseStorage implements IStorage {
+class DatabaseStorage {
   // User operations
-  async getUser(id: string): Promise<User | undefined> {
+  async getUser(id) {
     const [user] = await db.select().from(users).where(eq(users.id, id));
     return user;
   }
 
-  async upsertUser(userData: UpsertUser): Promise<User> {
+  async upsertUser(userData) {
     const [user] = await db
       .insert(users)
       .values(userData)
@@ -79,16 +32,16 @@ export class DatabaseStorage implements IStorage {
   }
 
   // Vehicle operations
-  async createVehicle(vehicle: InsertVehicle): Promise<Vehicle> {
+  async createVehicle(vehicle) {
     const [newVehicle] = await db.insert(vehicles).values(vehicle).returning();
     return newVehicle;
   }
 
-  async getVehiclesByDriverId(driverId: string): Promise<Vehicle[]> {
+  async getVehiclesByDriverId(driverId) {
     return await db.select().from(vehicles).where(eq(vehicles.driverId, driverId));
   }
 
-  async updateVehicle(id: string, updates: Partial<InsertVehicle>): Promise<Vehicle> {
+  async updateVehicle(id, updates) {
     const [updatedVehicle] = await db
       .update(vehicles)
       .set({ ...updates, updatedAt: new Date() })
@@ -97,24 +50,24 @@ export class DatabaseStorage implements IStorage {
     return updatedVehicle;
   }
 
-  async deleteVehicle(id: string): Promise<void> {
+  async deleteVehicle(id) {
     await db.delete(vehicles).where(eq(vehicles.id, id));
   }
 
   // Driver document operations
-  async createDriverDocument(document: InsertDriverDocument): Promise<DriverDocument> {
+  async createDriverDocument(document) {
     const [newDocument] = await db.insert(driverDocuments).values(document).returning();
     return newDocument;
   }
 
-  async getDriverDocuments(driverId: string): Promise<DriverDocument[]> {
+  async getDriverDocuments(driverId) {
     return await db
       .select()
       .from(driverDocuments)
       .where(eq(driverDocuments.driverId, driverId));
   }
 
-  async updateDriverDocument(id: string, updates: Partial<InsertDriverDocument>): Promise<DriverDocument> {
+  async updateDriverDocument(id, updates) {
     const [updatedDocument] = await db
       .update(driverDocuments)
       .set({ ...updates, updatedAt: new Date() })
@@ -124,16 +77,16 @@ export class DatabaseStorage implements IStorage {
   }
 
   // Bank account operations
-  async createBankAccount(account: InsertBankAccount): Promise<BankAccount> {
+  async createBankAccount(account) {
     const [newAccount] = await db.insert(bankAccounts).values(account).returning();
     return newAccount;
   }
 
-  async getBankAccountsByUserId(userId: string): Promise<BankAccount[]> {
+  async getBankAccountsByUserId(userId) {
     return await db.select().from(bankAccounts).where(eq(bankAccounts.userId, userId));
   }
 
-  async updateBankAccount(id: string, updates: Partial<InsertBankAccount>): Promise<BankAccount> {
+  async updateBankAccount(id, updates) {
     const [updatedAccount] = await db
       .update(bankAccounts)
       .set({ ...updates, updatedAt: new Date() })
@@ -143,12 +96,12 @@ export class DatabaseStorage implements IStorage {
   }
 
   // Delivery request operations
-  async createDeliveryRequest(request: InsertDeliveryRequest): Promise<DeliveryRequest> {
+  async createDeliveryRequest(request) {
     const [newRequest] = await db.insert(deliveryRequests).values(request).returning();
     return newRequest;
   }
 
-  async getDeliveryRequestsByCustomerId(customerId: string): Promise<DeliveryRequest[]> {
+  async getDeliveryRequestsByCustomerId(customerId) {
     return await db
       .select()
       .from(deliveryRequests)
@@ -156,7 +109,7 @@ export class DatabaseStorage implements IStorage {
       .orderBy(desc(deliveryRequests.createdAt));
   }
 
-  async getDeliveryRequestsByDriverId(driverId: string): Promise<DeliveryRequest[]> {
+  async getDeliveryRequestsByDriverId(driverId) {
     return await db
       .select()
       .from(deliveryRequests)
@@ -164,15 +117,15 @@ export class DatabaseStorage implements IStorage {
       .orderBy(desc(deliveryRequests.createdAt));
   }
 
-  async getAvailableDeliveryRequests(): Promise<DeliveryRequest[]> {
+  async getAvailableDeliveryRequests() {
     return await db
       .select()
       .from(deliveryRequests)
-      .where(eq(deliveryRequests.status, 'pending'))
+      .where(eq(deliveryRequests.status, "pending"))
       .orderBy(desc(deliveryRequests.createdAt));
   }
 
-  async updateDeliveryRequest(id: string, updates: Partial<InsertDeliveryRequest>): Promise<DeliveryRequest> {
+  async updateDeliveryRequest(id, updates) {
     const [updatedRequest] = await db
       .update(deliveryRequests)
       .set({ ...updates, updatedAt: new Date() })
@@ -181,7 +134,7 @@ export class DatabaseStorage implements IStorage {
     return updatedRequest;
   }
 
-  async getDeliveryRequest(id: string): Promise<DeliveryRequest | undefined> {
+  async getDeliveryRequest(id) {
     const [request] = await db
       .select()
       .from(deliveryRequests)
@@ -190,12 +143,12 @@ export class DatabaseStorage implements IStorage {
   }
 
   // Driver rating operations
-  async createDriverRating(rating: InsertDriverRating): Promise<DriverRating> {
+  async createDriverRating(rating) {
     const [newRating] = await db.insert(driverRatings).values(rating).returning();
     return newRating;
   }
 
-  async getDriverRatings(driverId: string): Promise<DriverRating[]> {
+  async getDriverRatings(driverId) {
     return await db
       .select()
       .from(driverRatings)
@@ -203,14 +156,13 @@ export class DatabaseStorage implements IStorage {
       .orderBy(desc(driverRatings.createdAt));
   }
 
-  async getDriverAverageRating(driverId: string): Promise<number> {
+  async getDriverAverageRating(driverId) {
     const [result] = await db
       .select({
-        avgRating: sql<number>`AVG(${driverRatings.rating})`,
+        avgRating: sql`AVG(${driverRatings.rating})`,
       })
       .from(driverRatings)
       .where(eq(driverRatings.driverId, driverId));
-    
     return result?.avgRating ? Number(result.avgRating) : 0;
   }
 }

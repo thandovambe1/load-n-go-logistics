@@ -1,13 +1,13 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React from "react"
+import { motion } from "framer-motion"
 
 const Hero = () => {
   const scrollToBooking = () => {
-    const section = document.getElementById("book");
+    const section = document.getElementById("book")
     if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
+      section.scrollIntoView({ behavior: "smooth" })
     }
-  };
+  }
 
   return (
     <section className="relative h-[90vh] flex items-center justify-center text-center text-white">
@@ -42,7 +42,7 @@ const Hero = () => {
         </button>
       </motion.div>
     </section>
-  );
-};
+  )
+}
 
-export default Hero;
+export default Hero
