@@ -4,32 +4,29 @@ import { Card, CardContent } from "@/components/ui/card"
 import { CloudUpload, File, X, CheckCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-  onFileSelect: (file) => void
-  accept?maxSize?; // in bytes
-  className?disabled?'data-testid'?}
-
-export default function FileUpload({ 
-  onFileSelect, 
-  accept = "*", 
+export default function FileUpload({
+  onFileSelect,
+  accept = "*",
   maxSize = 5 * 1024 * 1024, // 5MB default
   className,
   disabled = false,
-  'data-testid'}) {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null)
+  "data-testid": testId
+}) {
+  const [selectedFile, setSelectedFile] = useState(null)
   const [dragActive, setDragActive] = useState(false)
-  const [error, setError] = useState<string>("")
-  const fileInputRef = useRef<HTMLInputElement>(null)
+  const [error, setError] = useState("")
+  const fileInputRef = useRef(null)
 
-  const validateFile = (file)| null => {
+  const validateFile = (file) => {
     if (maxSize && file.size > maxSize) {
       return `File size must be less than ${(maxSize / (1024 * 1024)).toFixed(1)}MB`
     }
-    
+
     if (accept !== "*") {
       const acceptedTypes = accept.split(',').map(type => type.trim())
       const fileType = file.type
       const fileExtension = '.' + file.name.split('.').pop()?.toLowerCase()
-      
+
       const isValidType = acceptedTypes.some(type => {
         if (type.startsWith('.')) {
           return type === fileExtension
@@ -39,29 +36,29 @@ export default function FileUpload({
         }
         return type === fileType
       })
-      
+
       if (!isValidType) {
         return `File type not supported. Accepted types: ${accept}`
       }
     }
-    
+
     return null
   }
 
   const handleFile = (file) => {
     setError("")
     const validationError = validateFile(file)
-    
+
     if (validationError) {
       setError(validationError)
       return
     }
-    
+
     setSelectedFile(file)
     onFileSelect(file)
   }
 
-  const handleDrag = (e.DragEvent) => {
+  const handleDrag = (e) => {
     e.preventDefault()
     e.stopPropagation()
     if (e.type === "dragenter" || e.type === "dragover") {
@@ -71,22 +68,22 @@ export default function FileUpload({
     }
   }
 
-  const handleDrop = (e.DragEvent) => {
+  const handleDrop = (e) => {
     e.preventDefault()
     e.stopPropagation()
     setDragActive(false)
-    
+
     if (disabled) return
-    
+
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       handleFile(e.dataTransfer.files[0])
     }
   }
 
-  const handleChange = (e.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e) => {
     e.preventDefault()
     if (disabled) return
-    
+
     if (e.target.files && e.target.files[0]) {
       handleFile(e.target.files[0])
     }
@@ -124,7 +121,7 @@ export default function FileUpload({
         disabled={disabled}
         data-testid={`${testId}-input`}
       />
-      
+
       {selectedFile ? (
         <Card className="border-2 border-green-200 bg-green-50">
           <CardContent className="p-4">
@@ -144,7 +141,7 @@ export default function FileUpload({
                 variant="ghost"
                 size="sm"
                 onClick={removeFile}
-                className="text-green-700 hover-green-900"
+                className="text-green-700 hover:text-green-900"
                 data-testid={`${testId}-remove`}
               >
                 <X className="h-4 w-4" />
@@ -153,10 +150,10 @@ export default function FileUpload({
           </CardContent>
         </Card>
       ) : (
-        <Card 
+        <Card
           className={cn(
             "border-2 border-dashed transition-colors cursor-pointer",
-            dragActive ? "border-orange bg-orange-50" : "border-gray-300",
+            dragActive ? "border-orange-500 bg-orange-50" : "border-gray-300",
             disabled && "opacity-50 cursor-not-allowed",
             error && "border-red-300 bg-red-50"
           )}
@@ -167,14 +164,16 @@ export default function FileUpload({
           onClick={handleClick}
         >
           <CardContent className="p-6 text-center">
-            <CloudUpload className={cn(
-              "mx-auto h-12 w-12 mb-4",
-              dragActive ? "text-orange" : "text-gray-400",
-              error && "text-red-400"
-            )} />
+            <CloudUpload
+              className={cn(
+                "mx-auto h-12 w-12 mb-4",
+                dragActive ? "text-orange-500" : "text-gray-400",
+                error && "text-red-400"
+              )}
+            />
             <p className={cn(
               "text-sm font-medium mb-1",
-              dragActive ? "text-orange" : "text-gray-600",
+              dragActive ? "text-orange-600" : "text-gray-600",
               error && "text-red-600"
             )}>
               {dragActive ? "Drop file here" : "Click to upload or drag and drop"}
@@ -183,7 +182,7 @@ export default function FileUpload({
               "text-xs",
               error ? "text-red-500" : "text-gray-500"
             )}>
-              {error || `Accepted formats: ${accept === "*" ? "All files" } • Max size: ${(maxSize / (1024 * 1024)).toFixed(1)}MB`}
+              {error || `Accepted formats: ${accept === "*" ? "All files" : accept} • Max size: ${(maxSize / (1024 * 1024)).toFixed(1)}MB`}
             </p>
           </CardContent>
         </Card>
