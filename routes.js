@@ -1,5 +1,4 @@
-import type { Express } from "express";
-import { createServer, type Server } from "http";
+import { createServer } from "http";
 import { storage } from "./storage";
 import { setupAuth, isAuthenticated } from "./replitAuth";
 import { z } from "zod";
@@ -12,14 +11,13 @@ import {
   insertDriverRatingSchema,
 } from "@shared/schema";
 
-export async function registerRoutes(app: Express): Promise<Server> {
+export async function registerRoutes(app) {
   // Auth middleware
   await setupAuth(app);
 
   // Auth routes
-  app.get('/api/auth/user', async (req: any, res) => {
+  app.get('/api/auth/user', async (req, res) => {
     try {
-      // Check if user is authenticated without throwing 401
       if (!req.isAuthenticated() || !req.user || !req.user.claims) {
         return res.json(null);
       }
@@ -34,7 +32,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // User profile routes
-  app.get('/api/users/profile', isAuthenticated, async (req: any, res) => {
+  app.get('/api/users/profile', isAuthenticated, async (req, res) => {
     try {
       const userId = req.user.claims.sub;
       const user = await storage.getUser(userId);
@@ -49,7 +47,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Vehicle routes
-  app.post('/api/vehicles', isAuthenticated, async (req: any, res) => {
+  app.post('/api/vehicles', isAuthenticated, async (req, res) => {
     try {
       const userId = req.user.claims.sub;
       const vehicleData = insertVehicleSchema.parse({
@@ -69,7 +67,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get('/api/vehicles', isAuthenticated, async (req: any, res) => {
+  app.get('/api/vehicles', isAuthenticated, async (req, res) => {
     try {
       const userId = req.user.claims.sub;
       const vehicles = await storage.getVehiclesByDriverId(userId);
@@ -80,7 +78,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.put('/api/vehicles/:id', isAuthenticated, async (req: any, res) => {
+  app.put('/api/vehicles/:id', isAuthenticated, async (req, res) => {
     try {
       const { id } = req.params;
       const updates = insertVehicleSchema.partial().parse(req.body);
@@ -97,7 +95,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete('/api/vehicles/:id', isAuthenticated, async (req: any, res) => {
+  app.delete('/api/vehicles/:id', isAuthenticated, async (req, res) => {
     try {
       const { id } = req.params;
       await storage.deleteVehicle(id);
@@ -109,7 +107,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Driver document routes
-  app.post('/api/driver-documents', isAuthenticated, async (req: any, res) => {
+  app.post('/api/driver-documents', isAuthenticated, async (req, res) => {
     try {
       const userId = req.user.claims.sub;
       const documentData = insertDriverDocumentSchema.parse({
@@ -129,7 +127,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get('/api/driver-documents', isAuthenticated, async (req: any, res) => {
+  app.get('/api/driver-documents', isAuthenticated, async (req, res) => {
     try {
       const userId = req.user.claims.sub;
       const documents = await storage.getDriverDocuments(userId);
@@ -141,7 +139,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Bank account routes
-  app.post('/api/bank-accounts', isAuthenticated, async (req: any, res) => {
+  app.post('/api/bank-accounts', isAuthenticated, async (req, res) => {
     try {
       const userId = req.user.claims.sub;
       const accountData = insertBankAccountSchema.parse({
@@ -161,7 +159,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get('/api/bank-accounts', isAuthenticated, async (req: any, res) => {
+  app.get('/api/bank-accounts', isAuthenticated, async (req, res) => {
     try {
       const userId = req.user.claims.sub;
       const accounts = await storage.getBankAccountsByUserId(userId);
@@ -173,7 +171,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Delivery request routes
-  app.post('/api/delivery-requests', isAuthenticated, async (req: any, res) => {
+  app.post('/api/delivery-requests', isAuthenticated, async (req, res) => {
     try {
       const userId = req.user.claims.sub;
       
@@ -209,7 +207,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get('/api/delivery-requests', isAuthenticated, async (req: any, res) => {
+  app.get('/api/delivery-requests', isAuthenticated, async (req, res) => {
     try {
       const userId = req.user.claims.sub;
       const user = await storage.getUser(userId);
@@ -228,7 +226,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get('/api/delivery-requests/available', isAuthenticated, async (req: any, res) => {
+  app.get('/api/delivery-requests/available', isAuthenticated, async (req, res) => {
     try {
       const userId = req.user.claims.sub;
       const user = await storage.getUser(userId);
@@ -245,7 +243,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.put('/api/delivery-requests/:id/accept', isAuthenticated, async (req: any, res) => {
+  app.put('/api/delivery-requests/:id/accept', isAuthenticated, async (req, res) => {
     try {
       const { id } = req.params;
       const userId = req.user.claims.sub;
@@ -267,12 +265,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.put('/api/delivery-requests/:id/status', isAuthenticated, async (req: any, res) => {
+  app.put('/api/delivery-requests/:id/status', isAuthenticated, async (req, res) => {
     try {
       const { id } = req.params;
       const { status } = req.body;
       
-      const updateData: any = { status };
+      const updateData = { status };
       if (status === 'in_transit') {
         updateData.pickupTime = new Date();
       } else if (status === 'delivered') {
@@ -288,7 +286,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Driver rating routes
-  app.post('/api/driver-ratings', isAuthenticated, async (req: any, res) => {
+  app.post('/api/driver-ratings', isAuthenticated, async (req, res) => {
     try {
       const userId = req.user.claims.sub;
       const ratingData = insertDriverRatingSchema.parse({

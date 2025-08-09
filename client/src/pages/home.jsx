@@ -1,37 +1,37 @@
-import { useState, useEffect } from "react"
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
-import { useAuth } from "@/hooks/useAuth"
-import { useToast } from "@/hooks/use-toast"
-import { isUnauthorizedError } from "@/lib/authUtils"
-import { apiRequest } from "@/lib/queryClient"
-import Navigation from "@/components/navigation"
-import Footer from "@/components/footer"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Badge } from "@/components/ui/badge"
-import { MapPin, Flag, PlaneTakeoff, Star, Package } from "lucide-react"
+import { useState, useEffect } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useAuth } from "@/hooks/useAuth";
+import { useToast } from "@/hooks/use-toast";
+import { isUnauthorizedError } from "@/lib/authUtils";
+import { apiRequest } from "@/lib/queryClient";
+import Navigation from "@/components/navigation";
+import Footer from "@/components/footer";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Badge } from "@/components/ui/badge";
+import { MapPin, Flag, PlaneTakeoff, Star, Package } from "lucide-react";
 
 export default function Home() {
-  const { user, isLoading: authLoading } = useAuth()
-  const { toast } = useToast()
-  const queryClient = useQueryClient()
+  const { user, isLoading: authLoading } = useAuth();
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   const [deliveryForm, setDeliveryForm] = useState({
-    packageType: 'documents',
-    estimatedWeight: 'under_1kg',
-    pickupAddress: '',
-    deliveryAddress: '',
-    specialInstructions: '',
-    priority: 'standard',
+    packageType: "documents",
+    estimatedWeight: "under_1kg",
+    pickupAddress: "",
+    deliveryAddress: "",
+    specialInstructions: "",
+    priority: "standard",
     hasInsurance: false,
     requiresSignature: false,
-  })
+  });
 
   // Redirect if not authenticated
   useEffect(() => {
@@ -40,43 +40,42 @@ export default function Home() {
         title: "Unauthorized",
         description: "You are logged out. Logging in again...",
         variant: "destructive",
-      })
+      });
       setTimeout(() => {
-        window.location.href = "/api/login"
-      }, 500)
-      return
+        window.location.href = "/api/login";
+      }, 500);
+      return;
     }
-  }, [user, authLoading, toast])
+  }, [user, authLoading, toast]);
 
   // Fetch user's delivery requests
-  const { data: deliveryRequests = [], isLoading: requestsLoading } = useQuery<any[]>({
+  const { data: deliveryRequests = [], isLoading: requestsLoading } = useQuery({
     queryKey: ["/api/delivery-requests"],
     enabled: !!user,
-    refetchInterval: 30000, // Refresh every 30 seconds
-  })
+    refetchInterval: 30000,
+  });
 
   // Create delivery request mutation
   const createDeliveryMutation = useMutation({
-    mutationFn: async (data: any) => {
-      await apiRequest("POST", "/api/delivery-requests", data)
+    mutationFn: async (data) => {
+      await apiRequest("POST", "/api/delivery-requests", data);
     },
     onSuccess: () => {
       toast({
         title: "Delivery Request Created",
         description: "Your delivery request has been sent to partner drivers.",
-      })
-      queryClient.invalidateQueries({ queryKey: ["/api/delivery-requests"] })
-      // Reset form
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/delivery-requests"] });
       setDeliveryForm({
-        packageType: 'documents',
-        estimatedWeight: 'under_1kg',
-        pickupAddress: '',
-        deliveryAddress: '',
-        specialInstructions: '',
-        priority: 'standard',
+        packageType: "documents",
+        estimatedWeight: "under_1kg",
+        pickupAddress: "",
+        deliveryAddress: "",
+        specialInstructions: "",
+        priority: "standard",
         hasInsurance: false,
         requiresSignature: false,
-      })
+      });
     },
     onError: (error) => {
       if (isUnauthorizedError(error)) {
@@ -84,67 +83,67 @@ export default function Home() {
           title: "Unauthorized",
           description: "You are logged out. Logging in again...",
           variant: "destructive",
-        })
+        });
         setTimeout(() => {
-          window.location.href = "/api/login"
-        }, 500)
-        return
+          window.location.href = "/api/login";
+        }, 500);
+        return;
       }
       toast({
         title: "Error",
         description: "Failed to create delivery request. Please try again.",
         variant: "destructive",
-      })
+      });
     },
-  })
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleSubmit = (e) => {
+    e.preventDefault();
     if (!deliveryForm.pickupAddress || !deliveryForm.deliveryAddress) {
       toast({
         title: "Error",
         description: "Please fill in both pickup and delivery addresses.",
         variant: "destructive",
-      })
-      return
+      });
+      return;
     }
-    createDeliveryMutation.mutate(deliveryForm)
-  }
+    createDeliveryMutation.mutate(deliveryForm);
+  };
 
   const calculateTotal = () => {
-    const baseFee = 12.50
-    const distanceCharge = 8.00
-    let priorityFee = 0
-    if (deliveryForm.priority === 'express') priorityFee = 15
-    if (deliveryForm.priority === 'urgent') priorityFee = 35
-    const insuranceFee = deliveryForm.hasInsurance ? 2.50 : 0
-    return baseFee + distanceCharge + priorityFee + insuranceFee
-  }
+    const baseFee = 12.5;
+    const distanceCharge = 8.0;
+    let priorityFee = 0;
+    if (deliveryForm.priority === "express") priorityFee = 15;
+    if (deliveryForm.priority === "urgent") priorityFee = 35;
+    const insuranceFee = deliveryForm.hasInsurance ? 2.5 : 0;
+    return baseFee + distanceCharge + priorityFee + insuranceFee;
+  };
 
-  const getStatusBadge = (status: string) => {
+  const getStatusBadge = (status) => {
     const statusConfig = {
-      pending: { variant: "secondary" as const, text: "Pending" },
-      accepted: { variant: "default" as const, text: "Accepted" },
-      in_transit: { variant: "default" as const, text: "In Transit" },
-      delivered: { variant: "secondary" as const, text: "Delivered" },
-      cancelled: { variant: "destructive" as const, text: "Cancelled" },
-    }
-    const config = statusConfig[status as keyof typeof statusConfig] || statusConfig.pending
-    return <Badge variant={config.variant}>{config.text}</Badge>
-  }
+      pending: { variant: "secondary", text: "Pending" },
+      accepted: { variant: "default", text: "Accepted" },
+      in_transit: { variant: "default", text: "In Transit" },
+      delivered: { variant: "secondary", text: "Delivered" },
+      cancelled: { variant: "destructive", text: "Cancelled" },
+    };
+    const config = statusConfig[status] || statusConfig.pending;
+    return <Badge variant={config.variant}>{config.text}</Badge>;
+  };
 
   if (authLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-orange"></div>
       </div>
-    )
+    );
   }
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Navigation />
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Dashboard Header */}
         <Card className="mb-8">
@@ -152,7 +151,7 @@ export default function Home() {
             <div className="flex flex-col md:flex-row md:justify-between md:items-center">
               <div className="mb-4 md:mb-0">
                 <h1 className="text-2xl font-bold text-gray-custom" data-testid="text-welcome">
-                  Welcome back, {user?.firstName || 'User'}
+                  Welcome back, {user?.firstName || "User"}
                 </h1>
                 <p className="text-gray-600">Manage your deliveries and track packages</p>
               </div>
@@ -160,13 +159,13 @@ export default function Home() {
                 <div className="text-right">
                   <div className="text-sm text-gray-600">Account Balance</div>
                   <div className="text-xl font-semibold text-navy" data-testid="text-balance">
-                    ${user?.accountBalance || '0.00'}
+                    ${user?.accountBalance || "0.00"}
                   </div>
                 </div>
                 {user?.profileImageUrl && (
-                  <img 
-                    src={user.profileImageUrl} 
-                    alt="User profile" 
+                  <img
+                    src={user.profileImageUrl}
+                    alt="User profile"
                     className="w-12 h-12 rounded-full object-cover"
                     data-testid="img-profile"
                   />
@@ -189,7 +188,10 @@ export default function Home() {
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="packageType">Package Type</Label>
-                      <Select value={deliveryForm.packageType} onValueChange={(value) => setDeliveryForm({...deliveryForm, packageType: value})}>
+                      <Select
+                        value={deliveryForm.packageType}
+                        onValueChange={(value) => setDeliveryForm({ ...deliveryForm, packageType: value })}
+                      >
                         <SelectTrigger data-testid="select-package-type">
                           <SelectValue />
                         </SelectTrigger>
@@ -204,7 +206,10 @@ export default function Home() {
                     </div>
                     <div>
                       <Label htmlFor="estimatedWeight">Estimated Weight</Label>
-                      <Select value={deliveryForm.estimatedWeight} onValueChange={(value) => setDeliveryForm({...deliveryForm, estimatedWeight: value})}>
+                      <Select
+                        value={deliveryForm.estimatedWeight}
+                        onValueChange={(value) => setDeliveryForm({ ...deliveryForm, estimatedWeight: value })}
+                      >
                         <SelectTrigger data-testid="select-weight">
                           <SelectValue />
                         </SelectTrigger>
@@ -229,7 +234,7 @@ export default function Home() {
                       id="pickupAddress"
                       placeholder="Enter pickup address"
                       value={deliveryForm.pickupAddress}
-                      onChange={(e) => setDeliveryForm({...deliveryForm, pickupAddress: e.target.value})}
+                      onChange={(e) => setDeliveryForm({ ...deliveryForm, pickupAddress: e.target.value })}
                       data-testid="input-pickup-address"
                     />
                   </div>
@@ -243,7 +248,7 @@ export default function Home() {
                       id="deliveryAddress"
                       placeholder="Enter delivery address"
                       value={deliveryForm.deliveryAddress}
-                      onChange={(e) => setDeliveryForm({...deliveryForm, deliveryAddress: e.target.value})}
+                      onChange={(e) => setDeliveryForm({ ...deliveryForm, deliveryAddress: e.target.value })}
                       data-testid="input-delivery-address"
                     />
                   </div>
@@ -254,7 +259,7 @@ export default function Home() {
                       id="specialInstructions"
                       placeholder="Any special handling instructions..."
                       value={deliveryForm.specialInstructions}
-                      onChange={(e) => setDeliveryForm({...deliveryForm, specialInstructions: e.target.value})}
+                      onChange={(e) => setDeliveryForm({ ...deliveryForm, specialInstructions: e.target.value })}
                       data-testid="textarea-instructions"
                     />
                   </div>
@@ -263,9 +268,9 @@ export default function Home() {
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <Label>Delivery Priority</Label>
-                      <RadioGroup 
-                        value={deliveryForm.priority} 
-                        onValueChange={(value) => setDeliveryForm({...deliveryForm, priority: value})}
+                      <RadioGroup
+                        value={deliveryForm.priority}
+                        onValueChange={(value) => setDeliveryForm({ ...deliveryForm, priority: value })}
                         className="mt-2"
                       >
                         <div className="flex items-center space-x-2">
@@ -286,19 +291,19 @@ export default function Home() {
                       <Label>Additional Options</Label>
                       <div className="space-y-2 mt-2">
                         <div className="flex items-center space-x-2">
-                          <Checkbox 
+                          <Checkbox
                             id="insurance"
                             checked={deliveryForm.hasInsurance}
-                            onCheckedChange={(checked) => setDeliveryForm({...deliveryForm, hasInsurance: !!checked})}
+                            onCheckedChange={(checked) => setDeliveryForm({ ...deliveryForm, hasInsurance: !!checked })}
                             data-testid="checkbox-insurance"
                           />
                           <Label htmlFor="insurance">Package insurance ($2.50)</Label>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <Checkbox 
+                          <Checkbox
                             id="signature"
                             checked={deliveryForm.requiresSignature}
-                            onCheckedChange={(checked) => setDeliveryForm({...deliveryForm, requiresSignature: !!checked})}
+                            onCheckedChange={(checked) => setDeliveryForm({ ...deliveryForm, requiresSignature: !!checked })}
                             data-testid="checkbox-signature"
                           />
                           <Label htmlFor="signature">Signature required</Label>
@@ -325,14 +330,14 @@ export default function Home() {
                     </CardContent>
                   </Card>
 
-                  <Button 
-                    type="submit" 
+                  <Button
+                    type="submit"
                     className="w-full bg-orange text-white hover:bg-orange-600"
                     disabled={createDeliveryMutation.isPending}
                     data-testid="button-submit-request"
                   >
                     <PlaneTakeoff className="mr-2 h-4 w-4" />
-                    {createDeliveryMutation.isPending ? 'Sending...' : 'Send Delivery Request'}
+                    {createDeliveryMutation.isPending ? "Sending..." : "Send Delivery Request"}
                   </Button>
                 </form>
               </CardContent>
@@ -356,10 +361,10 @@ export default function Home() {
                 <div className="flex justify-between">
                   <span className="text-gray-600">This Month</span>
                   <span className="font-semibold" data-testid="text-month-deliveries">
-                    {deliveryRequests.filter((req: any) => {
-                      const reqDate = new Date(req.createdAt)
-                      const now = new Date()
-                      return reqDate.getMonth() === now.getMonth() && reqDate.getFullYear() === now.getFullYear()
+                    {deliveryRequests.filter((req) => {
+                      const reqDate = new Date(req.createdAt);
+                      const now = new Date();
+                      return reqDate.getMonth() === now.getMonth() && reqDate.getFullYear() === now.getFullYear();
                     }).length}
                   </span>
                 </div>
@@ -389,20 +394,23 @@ export default function Home() {
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    {deliveryRequests.slice(0, 3).map((request: any) => (
+                    {deliveryRequests.slice(0, 3).map((request) => (
                       <div key={request.id} className="border-l-4 border-orange pl-4" data-testid={`delivery-${request.id}`}>
                         <div className="flex justify-between items-start mb-1">
                           <span className="font-medium">
-                            {request.packageType === 'documents' ? 'Documents' : 
-                             request.packageType === 'small_package' ? 'Small Package' :
-                             request.packageType === 'medium_package' ? 'Medium Package' :
-                             request.packageType === 'large_item' ? 'Large Item' : 'Fragile Items'}
+                            {request.packageType === "documents"
+                              ? "Documents"
+                              : request.packageType === "small_package"
+                              ? "Small Package"
+                              : request.packageType === "medium_package"
+                              ? "Medium Package"
+                              : request.packageType === "large_item"
+                              ? "Large Item"
+                              : "Fragile Items"}
                           </span>
                           {getStatusBadge(request.status)}
                         </div>
-                        <div className="text-sm text-gray-600">
-                          Total: ${request.totalAmount}
-                        </div>
+                        <div className="text-sm text-gray-600">Total: ${request.totalAmount}</div>
                         <div className="text-xs text-gray-500 mt-1">
                           {new Date(request.createdAt).toLocaleDateString()}
                         </div>
@@ -410,7 +418,7 @@ export default function Home() {
                     ))}
                   </div>
                 )}
-                
+
                 {deliveryRequests.length > 3 && (
                   <Button variant="ghost" className="w-full mt-4 text-orange hover:text-orange-600">
                     View All Deliveries
@@ -424,5 +432,5 @@ export default function Home() {
 
       <Footer />
     </div>
-  )
+  );
 }

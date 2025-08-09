@@ -37,46 +37,51 @@ export default function VehicleManagement() {
   }, [user, authLoading, toast])
 
   // Fetch driver's vehicles
-  const { data: vehicles = [], isLoading: vehiclesLoading } = useQuery<any[]>({
+  const { data: vehicles = [], isLoading: vehiclesLoading } = useQuery({
     queryKey: ["/api/vehicles"],
     enabled: !!user && user.role === 'driver',
   })
 
   // Fetch driver documents
-  const { data: documents = [], isLoading: documentsLoading } = useQuery<any[]>({
+  const { data: documents = [], isLoading: documentsLoading } = useQuery({
     queryKey: ["/api/driver-documents"],
     enabled: !!user && user.role === 'driver',
   })
 
   // Fetch driver's delivery requests for stats
-  const { data: deliveryRequests = [] } = useQuery<any[]>({
+  const { data: deliveryRequests = [] } = useQuery({
     queryKey: ["/api/delivery-requests"],
     enabled: !!user && user.role === 'driver',
   })
 
-  const getDocumentsByType = (type: string) => {
-    return documents.find((doc: any) => doc.documentType === type)
+  const getDocumentsByType = (type) => {
+    return documents.find((doc) => doc.documentType === type)
   }
 
-  const getDocumentStatus = (doc: any) => {
-    if (!doc) return { status: 'missing', text: 'Missing', variant: 'destructive' as const }
-    
-    const expiryDate = new Date(doc.expiryDate)
-    const today = new Date()
-    const daysUntilExpiry = Math.ceil((expiryDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
-    
-    if (daysUntilExpiry < 0) {
-      return { status: 'expired', text: 'Expired', variant: 'destructive' as const }
-    } else if (daysUntilExpiry <= 30) {
-      return { status: 'expiring', text: 'Expiring Soon', variant: 'secondary' as const }
-    } else {
-      return { status: 'valid', text: 'Valid', variant: 'secondary' as const }
+const getDocumentStatus = (doc) => {
+  if (!doc) return { status: 'missing', text: 'Missing', variant: 'destructive' }
+
+  const expiryDate = new Date(doc.expiryDate)
+  const today = new Date()
+  const daysUntilExpiry = Math.ceil((expiryDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
+
+  if (daysUntilExpiry < 0) {
+    return { status: 'expired', text: 'Expired', variant: 'destructive' }
+  } else if (daysUntilExpiry <= 30) {
+    return { status: 'expiring', text: 'Expiring Soon', variant: 'secondary' }
+  } else {
+    // ...
+  }
+}
+
+   return { status: 'valid', text: 'Valid', variant: 'secondary' }
+
     }
-  }
+  
 
-  const activeVehicle = vehicles.find((vehicle: any) => vehicle.isActive) || vehicles[0]
+  const activeVehicle = vehicles.find((vehicle) => vehicle.isActive) || vehicles[0]
 
-  const totalDeliveries = deliveryRequests.filter((req: any) => req.status === 'delivered').length
+  const totalDeliveries = deliveryRequests.filter((req) => req.status === 'delivered').length
   const totalDistance = Math.floor(totalDeliveries * 12.5); // Approximate distance
   const avgRating = 4.8; // Mock rating
 
@@ -503,4 +508,4 @@ export default function VehicleManagement() {
       <Footer />
     </div>
   )
-}
+

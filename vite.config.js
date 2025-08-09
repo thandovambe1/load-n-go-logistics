@@ -3,8 +3,8 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
-// Import cartographer conditionally (without top-level await)
-const isReplit = process.env.NODE_ENV !== "production" && process.env.REPL_ID !== undefined;
+const isReplit =
+  process.env.NODE_ENV !== "production" && process.env.REPL_ID !== undefined;
 
 export default defineConfig(async () => {
   const plugins = [react(), runtimeErrorOverlay()];
@@ -18,7 +18,7 @@ export default defineConfig(async () => {
     plugins,
     resolve: {
       alias: {
-        "@": path.resolve(__dirname, "client", "src"),
+        "@": path.resolve(__dirname, "client", "src"), // ✅ Correct path
         "@shared": path.resolve(__dirname, "shared"),
         "@assets": path.resolve(__dirname, "attached_assets"),
       },
