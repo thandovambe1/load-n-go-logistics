@@ -1,9 +1,9 @@
-import { Link } from "wouter"
-import Navigation from "@/components/navigation"
-import Footer from "@/components/footer"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Shield, MapPin, Clock, Truck, Package, DollarSign } from "lucide-react"
+import { Link } from "wouter";
+import Navigation from "../components/Navigation";
+import Footer from "../components/Footer";
+import { Button } from "../components/ui/button";
+import { Card, CardContent } from "../components/ui/card";
+import { Shield, MapPin, Clock, Truck, Package, DollarSign } from "lucide-react";
 
 export default function Landing() {
   return (
@@ -127,5 +127,5 @@ export default function Landing() {
 
       <Footer />
     </div>
-  )
+  );
 }

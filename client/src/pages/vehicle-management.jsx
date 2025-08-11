@@ -4,8 +4,8 @@ import { useAuth } from "@/hooks/useAuth"
 import { useToast } from "@/hooks/use-toast"
 import { isUnauthorizedError } from "@/lib/authUtils"
 import { apiRequest } from "@/lib/queryClient"
-import Navigation from "@/components/navigation"
-import Footer from "@/components/footer"
+import Navigation from "@/components/Navigation"
+import Footer from "@/components/Footer"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -67,47 +67,62 @@ const getDocumentStatus = (doc) => {
 
   if (daysUntilExpiry < 0) {
     return { status: 'expired', text: 'Expired', variant: 'destructive' }
+const getDocumentStatus = (doc) => {
+  if (!doc) return { status: 'missing', text: 'Missing', variant: 'destructive' }
+
+  const expiryDate = new Date(doc.expiryDate)
+  const today = new Date()
+  const daysUntilExpiry = Math.ceil((expiryDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
+
+  if (daysUntilExpiry < 0) {
+    return { status: 'expired', text: 'Expired', variant: 'destructive' }
   } else if (daysUntilExpiry <= 30) {
     return { status: 'expiring', text: 'Expiring Soon', variant: 'secondary' }
   } else {
-    // ...
+    return { status: 'valid', text: 'Valid', variant: 'secondary' }
   }
 }
 
-   return { status: 'valid', text: 'Valid', variant: 'secondary' }
-
-    }
-  
-
-  const activeVehicle = vehicles.find((vehicle) => vehicle.isActive) || vehicles[0]
-
-  const totalDeliveries = deliveryRequests.filter((req) => req.status === 'delivered').length
-  const totalDistance = Math.floor(totalDeliveries * 12.5); // Approximate distance
-  const avgRating = 4.8; // Mock rating
-
-  if (authLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-orange"></div>
-      </div>
-    )
+  } else if (daysUntilExpiry <= 30) {
+    return { status: "expiring", text: "Expiring Soon", variant: "secondary" };
+  } else {
+    return { status: "valid", text: "Valid", variant: "secondary" };
   }
+};
 
+const activeVehicle = vehicles.find((vehicle) => vehicle.isActive) || vehicles[0];
+
+const totalDeliveries = Array.isArray(deliveryRequests)
+  ? deliveryRequests.filter((req) => req.status === "delivered").length
+  : 0;
+
+const totalDistance = Math.floor(totalDeliveries * 12.5); // Approximate distance
+const avgRating = 4.8; // Mock rating
+
+if (authLoading) {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navigation />
-      
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8">
-          <Link href="/">
-            <Button variant="ghost" className="text-orange hover:text-orange-600 mb-4" data-testid="button-back">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Dashboard
-            </Button>
-          </Link>
-          <h1 className="text-3xl font-bold text-gray-custom mb-2" data-testid="text-vehicle-management">
-            Vehicle Management
-          </h1>
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-orange"></div>
+    </div>
+  );
+}
+
+return (
+  <div className="min-h-screen bg-gray-50">
+    <Navigation />
+    
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="mb-8">
+        <Link href="/">
+          <Button variant="ghost" className="text-orange hover:text-orange-600 mb-4" data-testid="button-back">
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Back to Dashboard
+          </Button>
+        </Link>
+        <h1 className="text-3xl font-bold text-gray-custom mb-2" data-testid="text-vehicle-management">
+          Vehicle Management
+        </h1>
+
           <p className="text-gray-600">Manage your vehicles, insurance, and documentation</p>
         </div>
 
@@ -508,4 +523,4 @@ const getDocumentStatus = (doc) => {
       <Footer />
     </div>
   )
-
+}

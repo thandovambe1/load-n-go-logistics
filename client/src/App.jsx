@@ -8,7 +8,7 @@ import { TooltipProvider } from "./components/ui/tooltip";
 import { useAuth } from "./hooks/useAuth";
 
 import NotFound from "./pages/not-found";
-import Landing from "./pages/landing";
+import Landing from "./pages/Landing.jsx";
 import Home from "./pages/home";
 import DriverDashboard from "./pages/driver-dashboard";
 import DriverRegistration from "./pages/driver-registration";
